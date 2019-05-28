@@ -7,9 +7,9 @@
 #stim=$(jq -r .stim config.json)
 
 #export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64
-export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64
+#export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64
 
 #time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
-time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64 && ./compiled/main"
+time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 && printenv && ./compiled/main"
 
 #time singularity exec -e docker://brainlife/afni ./align.sh
