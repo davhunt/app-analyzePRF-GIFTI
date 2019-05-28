@@ -79,7 +79,9 @@ stimulus = stimulus([1 2 3 4 5 5]);
 clear a1;
 
 % load data
-addpath /N/u/davhunt/Carbonate/Downloads/gifti-1.8/
+if ~isdeployed
+  addpath(genpath('/N/u/davhunt/Carbonate/Downloads/gifti-1.8/'))
+end
 data = {};
 for p=1:6
   data{p} = double(getfield(ciftiopen([subjs{wh} '/' runs{p}],wbcmd),'cdata'));
