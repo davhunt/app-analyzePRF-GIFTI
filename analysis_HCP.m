@@ -80,7 +80,7 @@ clear a1;
 
 % load data
 if ~isdeployed
-  addpath(genpath('/N/u/davhunt/Carbonate/Downloads/gifti-1.8/'))
+  addpath(genpath('/N/u/davhunt/Carbonate/Downloads/gifti-1.8'))
 end
 data = {};
 for p=1:6
