@@ -8,4 +8,4 @@ fmri=$(jq -r .gifti_dir config.json)
 
 time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 
-time singularity exec -e docker://brainlife/afni ./align.sh
+#time singularity exec -e docker://brainlife/afni ./align.sh

@@ -43,7 +43,7 @@ runs = {'tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtserie
         'tfMRI_RETBAR2_7T_PA/tfMRI_RETBAR2_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii'};
     %subjs = matchfiles('/path/to/HCP7TRET/??????');  % match 6-digit subject IDs
 %subjs = matchfiles('/N/u/davhunt/Carbonate/Downloads/100610');
-subjs = matchfiles(config_dir);
+subjs = matchfiles(gifti_dir);
 tr = 1;                % temporal sampling rate in seconds
 pxtodeg = 16.0/200;    % conversion from pixels to degrees
 wbcmd = 'wb_command';  % path to workbench command
@@ -138,4 +138,4 @@ save_nii(a2.img,'R2.nii.gz');
 a2.img = make_nii(allresults(:,6,1,1),[2.00 2.00 2.00]);
 save_nii(a2.img,'rfWidth.nii.gz');
 
-exit;
+cd ..
