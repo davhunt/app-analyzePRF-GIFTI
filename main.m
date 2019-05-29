@@ -1,6 +1,8 @@
 function [] = main()
 
-disp('fdsa')
+fid = fopen('PercentComplete.dat','w');
+fprintf(fid,'asdf');
+fclose(fid)
 if ~isdeployed
 	disp('loading paths for IUHPC')
 	addpath(genpath('/N/u/brlife/git/jsonlab'))
@@ -13,7 +15,9 @@ end
 % load my own config.json
 config = loadjson('config.json');
 
-disp('asdf')
+fid = fopen('PercentComplete.dat','w');
+fprintf(fid,'fdsaa');
+fclose(fid)
 PATH = getenv('PATH');
 setenv('PATH', [PATH ':/usr/bin']);
 LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
