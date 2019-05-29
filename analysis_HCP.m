@@ -46,7 +46,7 @@ runs = {'tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtserie
 subjs = matchfiles(gifti_dir);
 tr = 1;                % temporal sampling rate in seconds
 pxtodeg = 16.0/200;    % conversion from pixels to degrees
-wbcmd = '/N/u/davhunt/Carbonate/workbench/bin_rh_linux/wb_command';  % path to workbench command
+wbcmd = '/N/u/davhunt/Carbonate/workbench/bin_rh_linux64/wb_command';  % path to workbench command
 
 % define which subject to analyze (1 through 184)
 wh = 1;
