@@ -10,6 +10,8 @@
 #export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64
 
 #time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
-time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 && printenv && ./compiled/main"
+#time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 && printenv && ./compiled/main"
+
+time singularity exec -e docker://brainlife/connectome_workbench:1.3.0 bash -c "module unload matlab && module load matlab/2017a && printenv && ./compiled/main"
 
 #time singularity exec -e docker://brainlife/afni ./align.sh
