@@ -1,5 +1,6 @@
 function [] = main()
 
+disp('fdsa')
 if ~isdeployed
 	disp('loading paths for IUHPC')
 	addpath(genpath('/N/u/brlife/git/jsonlab'))
