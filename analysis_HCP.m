@@ -80,7 +80,7 @@ clear a1;
 
 % load data
 if ~isdeployed
-  addpath(genpath(pwd + '/workbench/bin_rh_linux64'))
+  addpath(genpath(pwd + '/workbench'))
 end
 data = {};
 
