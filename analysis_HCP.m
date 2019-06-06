@@ -85,9 +85,10 @@ if ~isdeployed
 end
 data = {};
 
-PATH = getenv('PATH');
-setenv('PATH', [PATH ':/usr/bin']);
-%LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
+%PATH = getenv('PATH');
+%setenv('PATH', [PATH ':/usr/bin']);
+LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
+disp(LD_LIBRARY_PATH);
 %setenv('LD_LIBRARY_PATH', [LD_LIBRARY_PATH ':/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64']);
 
 for p=1:6
