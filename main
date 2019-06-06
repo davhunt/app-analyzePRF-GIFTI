@@ -14,7 +14,7 @@ export LD_LIBRARY_PATH=`pwd`/workbench/libs_rh_linux64:`pwd`/workbench/libs_rh_l
 #export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
 echo $LD_LIBRARY_PATH
 ls /usr/lib64/*-2.0.so.0
-time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a bash -c "ls /usr/lib64/*-2.0.so.0 && ./compiled/main"
+time singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 
 #bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
 
