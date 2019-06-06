@@ -12,7 +12,8 @@
 #time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 export LD_LIBRARY_PATH=`pwd`/workbench/libs_rh_linux64:`pwd`/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
 #export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
-time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
+echo $LD_LIBRARY_PATH
+time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a bash -c "echo $LD_LIBRARY_PATH && ./compiled/main"
 
 #bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
 
