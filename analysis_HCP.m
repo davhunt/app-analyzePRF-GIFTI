@@ -96,6 +96,7 @@ disp(LD_LIBRARY_PATH);
 
 for p=1:6
   data{p} = double(getfield(ciftiopen([subjs{wh} '/' runs{p}],wbcmd),'cdata'));
+  disp('loading');
 end
 
 % deal with subsetting

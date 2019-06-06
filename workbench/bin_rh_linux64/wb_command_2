@@ -3,9 +3,9 @@
 #
 # Point to the actual application executable
 #
-realpath=`readlink -f "$0"`
+#realpath=`readlink -f "$0"`
 echo $realpath
-directory=`dirname "$realpath"`
+#directory=`dirname "$realpath"`
 echo $directory
 
 #matlab does stupid stuff with LD_LIBRARY_PATH in system() calls, leading to warnings about non-versioned libraries
@@ -19,5 +19,6 @@ fi
 
 export QT_QPA_PLATFORM_PLUGIN_PATH="$directory/../plugins_rh_linux64"
 
-"$directory"/../exe_rh_linux64/wb_command "$@"
+#"$directory"/../exe_rh_linux64/wb_command "$@"
+/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/exe_rh_linux64/wb_command "$@"
 exit $?
