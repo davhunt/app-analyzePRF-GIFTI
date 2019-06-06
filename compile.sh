@@ -15,8 +15,6 @@ echo "/N/u/davhunt/Carbonate/analyzePRF/utilities" >> $log
 echo "/N/u/davhunt/Carbonate/Downloads/gifti-1.8" >> $log
 (cd /N/u/davhunt/Carbonate/Downloads/gifti-1.8 && git log -1) >> $log
 
-mkdir -p compiled
-
 cat > build.m <<END
 %addpath(genpath('/N/u/brlife/git/vistasoft'))
 addpath(genpath('/N/u/brlife/git/jsonlab'))
