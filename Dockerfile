@@ -17,6 +17,22 @@ ADD MCRv80.tar.gz /usr/local/freesurfer
 #mkdir shouldn't be needed on overlay enabled hosts - just add to singularity.conf (without --writable)
 RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft /scratch /mnt/share1 /share1
 
+
+RUN mkdir /mcr-install && \
+    mkdir /opt/mcr && \
+    cd /mcr-install && \
+    wget -q http://ssd.mathworks.com/supportfiles/downloads/R2017b/deployment_files/R2017b/installers/glnxa64/MCR_R2017b_glnxa64_installer.zip && \
+    unzip -q MCR_R2017b_glnxa64_installer.zip && \
+    rm -f MCR_R2017b_glnxa64_installer.zip && \
+    ./install -destinationFolder /opt/mcr -agreeToLicense yes -mode silent && \
+    cd / && \
+    rm -rf mcr-install
+
+# Configure environment variables for MCR
+ENV LD_LIBRARY_PATH /opt/mcr/v93/runtime/glnxa64:/opt/mcr/v93/bin/glnxa64:/opt/mcr/v93/sys/os/glnxa64
+ENV XAPPLRESDIR /opt/mcr/v93/X11/app-defaults
+
+
 ENV FREESURFER_HOME /usr/local/freesurfer
 ENV FMRI_ANALYSIS_DIR /usr/local/freesurfer/fsfast
 ENV FSFAST_HOME /usr/local/freesurfer/fsfast
