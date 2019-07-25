@@ -20,7 +20,7 @@ ls /usr/lib64/*-2.0.so.0
 
 #time singularity exec --writable -e docker://davhunt/wb_freesurfer:1.0 bash -c "echo $FREESURFER_LICENSE > /usr/local/freesurfer/license.txt && ./compiled/main"
 
-time singularity exec -e docker://davhunt/wb_freesurfer:1.0 ./compiled/main
+time singularity exec -e docker://davhunt/wb_freesurfer:1.0 bash -c " echo $LD_LIBRARY_PATH && ./compiled/main"
 
 #bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
 
