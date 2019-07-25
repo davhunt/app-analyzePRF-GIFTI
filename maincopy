@@ -10,17 +10,11 @@
 #export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64
 
 #time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
-echo ${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=`pwd`/workbench/libs_rh_linux64:`pwd`/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
 #export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
 echo $LD_LIBRARY_PATH
 ls /usr/lib64/*-2.0.so.0
-
-[ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
-
-time singularity exec --writable -e docker://davhunt/wb_freesurfer:1.0 bash -c "echo $FREESURFER_LICENSE > /usr/local/freesurfer/license.txt && ./compiled/main"
-
-
+time singularity exec docker://davhunt/wb_freesurfer:1.0 ./compiled/main
 
 #bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
 
