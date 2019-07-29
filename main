@@ -10,7 +10,8 @@
 #export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64
 
 #time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
-module load matlab
+module unload matlab
+module load matlab/2017a
 
 echo ${LD_LIBRARY_PATH}
 export LD_LIBRARY_PATH=`pwd`/workbench/libs_rh_linux64:`pwd`/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
