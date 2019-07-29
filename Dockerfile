@@ -18,14 +18,25 @@ RUN apt-get update && apt-get install -y jq bc libsys-hostname-long-perl libglib
 RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft /scratch /mnt/share1 /share1
 
 
+#RUN apt-get install wget
+#RUN apt-get install unzip
+#RUN mkdir /mcr-install && \
+#    mkdir /opt/mcr && \
+#    cd /mcr-install && \
+#    wget -q http://ssd.mathworks.com/supportfiles/downloads/R2017b/deployment_files/R2017b/installers/glnxa64/#MCR_R2017b_glnxa64_installer.zip && \
+#    unzip -q MCR_R2017b_glnxa64_installer.zip && \
+#    rm -f MCR_R2017b_glnxa64_installer.zip && \
+#    ./install -destinationFolder /opt/mcr -agreeToLicense yes -mode silent && \
+#    cd / && \
+#    rm -rf mcr-install
 RUN apt-get install wget
 RUN apt-get install unzip
 RUN mkdir /mcr-install && \
     mkdir /opt/mcr && \
     cd /mcr-install && \
-    wget -q http://ssd.mathworks.com/supportfiles/downloads/R2017b/deployment_files/R2017b/installers/glnxa64/MCR_R2017b_glnxa64_installer.zip && \
-    unzip -q MCR_R2017b_glnxa64_installer.zip && \
-    rm -f MCR_R2017b_glnxa64_installer.zip && \
+    wget -q http://ssd.mathworks.com/supportfiles/downloads/R2017a/deployment_files/R2017a/installers/glnxa64/MCR_R2017a_glnxa64_installer.zip && \
+    unzip -q MCR_R2017a_glnxa64_installer.zip && \
+    rm -f MCR_R2017a_glnxa64_installer.zip && \
     ./install -destinationFolder /opt/mcr -agreeToLicense yes -mode silent && \
     cd / && \
     rm -rf mcr-install
