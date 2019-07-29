@@ -25,7 +25,7 @@ ls /usr/lib64/*-2.0.so.0
 
 export PATH=$PATH:$LD_LIBRARY_PATH
 
-time singularity exec -e docker://davhunt/wb_freesurfer:2.0 bash -c " echo $LD_LIBRARY_PATH && echo $PATH && ./compiled/main"
+time singularity exec docker://davhunt/wb_freesurfer:2.0 bash -c " echo $LD_LIBRARY_PATH && echo $PATH && ./compiled/main"
 
 #bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
 
