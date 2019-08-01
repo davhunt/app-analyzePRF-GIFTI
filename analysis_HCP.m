@@ -97,10 +97,7 @@ disp(subjs{1});
 disp(gifti_dir);
 disp([subjs{wh} '/' runs{1}]);
 pwd
-ls
-cd ..
-pwd
-ls
+disp([subjs{wh}(1:end-2) '/' runs{1}]);
 
 
 for p=1:6
