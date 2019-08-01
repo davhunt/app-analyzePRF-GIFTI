@@ -95,6 +95,7 @@ LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
 disp(LD_LIBRARY_PATH);
 disp(subjs{1});
 disp(gifti_dir);
+disp([subjs{wh} '/' runs{1}]);
 
 
 for p=1:6
