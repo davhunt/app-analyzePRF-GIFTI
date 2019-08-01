@@ -96,6 +96,11 @@ disp(LD_LIBRARY_PATH);
 disp(subjs{1});
 disp(gifti_dir);
 disp([subjs{wh} '/' runs{1}]);
+pwd
+ls
+cd ..
+pwd
+ls
 
 
 for p=1:6
