@@ -14,7 +14,7 @@ module unload matlab
 module load matlab/2017a
 
 echo ${LD_LIBRARY_PATH}
-export LD_LIBRARY_PATH=`pwd`/workbench/libs_rh_linux64:`pwd`/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=`pwd`/workbench/libs_rh_linux64:`pwd`/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH
 #export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
 echo $LD_LIBRARY_PATH
 ls /usr/lib64/*-2.0.so.0
