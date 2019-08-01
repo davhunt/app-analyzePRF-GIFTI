@@ -98,10 +98,11 @@ disp(gifti_dir);
 disp([subjs{wh} '/' runs{1}]);
 pwd
 disp([subjs{wh}(1:end-2) '/' runs{1}]);
+disp(['../' subjs{wh}(1:end-2) '/' runs{1}]);
 
 
 for p=1:6
-  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
+  data{p} = double(getfield(ciftiopen(['../' subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
   disp('loading');
 end
 
