@@ -1,5 +1,7 @@
 function [] = main()
 
+disp(getenv('LD_LIBRARY_PATH'))
+
 fid = fopen('PercentComplete.dat','w');
 fprintf(fid,'asdf');
 fclose(fid)
