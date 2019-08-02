@@ -98,6 +98,8 @@ disp(gifti_dir);
 disp([subjs{wh} '/' runs{1}]);
 pwd
 disp([subjs{wh}(1:end-2) '/' runs{1}]);
+asdf = [subjs{wh}(1:end-2) '/' runs{1}];
+class(asdf)
 
 for p=1:6
   data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
