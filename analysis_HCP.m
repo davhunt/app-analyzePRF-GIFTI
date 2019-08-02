@@ -102,7 +102,8 @@ asdf = [subjs{wh}(1:end-2) '/' runs{1}];
 class(asdf)
 
 for p=1:6
-  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
+%  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
+  data{p} = double(getfield(ciftiopen(asdf,wbcmd),'cdata'));
   disp('loading');
 end
 
