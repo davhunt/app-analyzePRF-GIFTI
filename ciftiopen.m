@@ -20,6 +20,7 @@ function [ cifti, cdata ] = ciftiopen(filename,wbcommand,verbose)
 % command for executing 'wbcommand'.
 
 % Default is VERBOSE=0 (OFF)
+disp(filename)
 if (nargin < 3) 
   verbose = 0;
 end
