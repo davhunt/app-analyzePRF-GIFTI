@@ -103,7 +103,7 @@ class(asdf)
 
 for p=1:6
 %  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
-  data{p} = double(getfield(ciftiopen(asdf,wbcmd),'cdata'));
+  data{p} = double(getfield(ciftiopen('/N/dc2/scratch/davhunt/workflows/5d43890603480e00281e681c/5d43890603480e00281e681d/5ceca72b059f7a0036ff37c5/tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_hp2000_clean.dtseries.nii',wbcmd),'cdata'));
   disp('loading');
 end
 
