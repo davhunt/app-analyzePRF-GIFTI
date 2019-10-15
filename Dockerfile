@@ -64,3 +64,4 @@ RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft /scratch /mnt/share1 /share
 #RUN apt-get install -y libxt6 libxmu6
 
 RUN touch /usr/local/freesurfer/license.txt && chmod 777 /usr/local/freesurfer/license.txt
+RUN mv /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6 /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6.old
