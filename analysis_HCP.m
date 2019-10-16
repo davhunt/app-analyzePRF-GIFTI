@@ -47,7 +47,7 @@ subjs = matchfiles(gifti_dir);
 tr = 1;                % temporal sampling rate in seconds
 pxtodeg = 16.0/200;    % conversion from pixels to degrees
 cwd = pwd
-wbcmd = strcat(cwd,'/workbench/bin_rh_linux64/wb_command');  % path to workbench command
+wbcmd = '/N/u/davhunt/Carbonate/workbench/bin_rh_linux64/wb_command';  % path to workbench command
 
 % define which subject to analyze (1 through 184)
 wh = 1;
@@ -80,9 +80,9 @@ stimulus = stimulus([1 2 3 4 5 5]);
 clear a1;
 
 % load data
-if ~isdeployed
-  addpath(genpath(strcat(pwd,'/workbench')))
-end
+%if ~isdeployed
+%  addpath(genpath(strcat(pwd,'/workbench')))
+%end
 data = {};
 
 %PATH = getenv('PATH');
