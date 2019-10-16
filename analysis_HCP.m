@@ -81,7 +81,7 @@ clear a1;
 
 % load data
 if ~isdeployed
-  addpath(genpath(pwd + '/workbench'))
+  addpath(genpath(strcat(pwd,'/workbench')))
 end
 data = {};
 
