@@ -20,4 +20,3 @@ Date:   Thu Apr 18 14:36:26 2019 -0400
 
     change header to align with t1
 /N/u/davhunt/Carbonate/Downloads/gifti-1.8
-/N/u/davhunt/Carbonate/workbench

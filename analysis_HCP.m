@@ -47,7 +47,7 @@ subjs = matchfiles(gifti_dir);
 tr = 1;                % temporal sampling rate in seconds
 pxtodeg = 16.0/200;    % conversion from pixels to degrees
 cwd = pwd
-wbcmd = '/N/u/davhunt/Carbonate/workbench/bin_rh_linux64/wb_command';  % path to workbench command
+wbcmd = '/usr/bin/wb_command';  % path to workbench command
 
 % define which subject to analyze (1 through 184)
 wh = 1;
@@ -103,8 +103,8 @@ class(asdf)
 
 for p=1:6
 %  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
-%  data{p} = double(getfield(ciftiopen('/N/dc2/scratch/davhunt/workflows/5d43890603480e00281e681c/5d43890603480e00281e681d/5ceca72b059f7a0036ff37c5/tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii',wbcmd),'cdata'));
-  system([wbcmd ' -help'])
+  data{p} = double(getfield(ciftiopen('/N/dc2/scratch/davhunt/workflows/5d43890603480e00281e681c/5d43890603480e00281e681d/5ceca72b059f7a0036ff37c5/tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii',wbcmd),'cdata'));
+%  system([wbcmd ' -help'])
   disp('loading');
 end
 
