@@ -118,7 +118,7 @@ case 3
   stimulus = cellfun(@(x) x(:,:,151:300),stimulus,'UniformOutput',0);
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
-
+exit;
 % fit the models
 a1 = analyzePRF(stimulus,data,tr,struct('seedmode',2));
 
