@@ -9,7 +9,6 @@ if ~isdeployed
 	%addpath(genpath('/N/u/brlife/git/vistasoft'))
 	addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF/utilities'))
         addpath(genpath('/N/u/davhunt/Carbonate/Downloads/gifti-1.8/'))
-        addpath(genpath(pwd))
         %addpath(genpath('/N/u/davhunt/Carbonate/workbench'))
 end
 
