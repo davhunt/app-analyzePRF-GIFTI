@@ -2,9 +2,6 @@ function [] = main()
 
 disp(getenv('LD_LIBRARY_PATH'))
 
-fid = fopen('PercentComplete.dat','w');
-fprintf(fid,'asdf');
-fclose(fid)
 if ~isdeployed
 	disp('loading paths for IUHPC')
 	addpath(genpath('/N/u/brlife/git/jsonlab'))
@@ -12,6 +9,7 @@ if ~isdeployed
 	%addpath(genpath('/N/u/brlife/git/vistasoft'))
 	addpath(genpath('/N/u/davhunt/Carbonate/analyzePRF/utilities'))
         addpath(genpath('/N/u/davhunt/Carbonate/Downloads/gifti-1.8/'))
+        addpath(genpath(pwd))
         %addpath(genpath('/N/u/davhunt/Carbonate/workbench'))
 end
 
