@@ -32,7 +32,7 @@ tmpfile = tempname;
 tstart=tic;
 disp(wbcommand)
 % Do conversion and loading
-[status, cmdout] = system([wbcommand ' -cifti-convert -to-gifti-ext ' filename ' ' tmpfile '.gii'])
+[status, cmdout] = system([wbcommand ' -cifti-convert -to-gifti-ext ' filename ' ' tmpfile '.gii']);
 cifti = gifti([tmpfile '.gii']);
 
 if nargout > 1
