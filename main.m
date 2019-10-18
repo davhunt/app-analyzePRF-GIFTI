@@ -29,8 +29,5 @@ disp('asdff')
 
 % compute pRF
 analysis_HCP(config.gifti_dir);
-[status, cmdout] = system(['wb_command -help'])
-
-[status1, cmdd] = system(['/usr/bin/wb_command -help'])
 
 end

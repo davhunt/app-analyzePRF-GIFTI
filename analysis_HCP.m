@@ -88,22 +88,15 @@ data = {};
 %PATH = getenv('PATH');
 %setenv('PATH', [PATH ':/usr/bin']);
 LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
-disp(LD_LIBRARY_PATH);
 %setenv('LD_LIBRARY_PATH', [LD_LIBRARY_PATH ':/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64']);
 %setenv('LD_LIBRARY_PATH', [LD_LIBRARY_PATH strcat(':',cwd,'/workbench/libs_rh_linux64:',cwd,'/workbench/libs_rh_linux64_software_opengl:',cwd,'/workbench/libs:/N/soft/rhel7/singularity/2.6.1/lib:/N/soft/rhel7/perl/gnu/5.24.1/lib:/N/soft/rhel7/python/2.7.13a/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/ipp/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/tbb/lib/intel64/gcc4.7:/N/soft/rhel7/intel/18.0.2/debugger_2018/iga/lib:/N/soft/rhel7/intel/18.0.2/debugger_2018/libipt/intel64/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal/lib/intel64_lin:/N/soft/rhel7/gcc/6.3.0/lib64:/N/soft/rhel7/gcc/6.3.0/lib:/opt/thinlinc/lib64:/opt/thinlinc/lib')]);
-LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
-disp(LD_LIBRARY_PATH);
-disp(subjs{1});
-disp(gifti_dir);
-disp([subjs{wh} '/' runs{1}]);
-pwd
+
 disp([subjs{wh}(1:end-2) '/' runs{1}]);
-asdf = [subjs{wh}(1:end-2) '/' runs{1}];
-class(asdf)
+
 [status,cmdoutt] = system([wbcmd ' -help'])
 for p=1:6
-%  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
-  data{p} = double(getfield(ciftiopen('/N/dc2/scratch/davhunt/workflows/5d43890603480e00281e681c/5d43890603480e00281e681d/5ceca72b059f7a0036ff37c5/tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii',wbcmd),'cdata'));
+  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
+%  data{p} = double(getfield(ciftiopen('/N/dc2/scratch/davhunt/workflows/5d43890603480e00281e681c/5d43890603480e00281e681d/5ceca72b059f7a0036ff37c5/tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii',wbcmd),'cdata'));
 %  system([wbcmd ' -help'])
   disp('loading');
 end
