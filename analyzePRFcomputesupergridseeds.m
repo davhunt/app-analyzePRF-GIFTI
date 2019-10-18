@@ -1,91 +1,137 @@
-function noisereg = analyzePRFcomputeGLMdenoiseregressors(stimulus,data,tr)
+function [seeds,rvalues] = analyzePRF_computesupergridseeds(res,stimulus,data,modelfun,maxpolydeg,dimdata,dimtime,typicalgain,noisereg)
 
-% function noisereg = analyzePRFcomputeGLMdenoiseregressors(stimulus,data,tr)
+% function [seeds,rvalues] = analyzePRF_computesupergridseeds(res,stimulus,data,modelfun,maxpolydeg,dimdata,dimtime,typicalgain,noisereg)
 %
-% <stimulus>,<data>,<tr> are from analyzePRF
+% <res> is [R C] with the resolution of the stimuli
+% <stimulus> is a cell vector of time x (pixels+1)
+% <data> is a cell vector of X x Y x Z x time (or XYZ x time)
+% <modelfun> is a function that accepts parameters (pp) and stimuli (dd) and outputs predicted time-series (time x 1)
+% <maxpolydeg> is a vector of degrees (one element for each run)
+% <dimdata> is number of dimensions that pertain to voxels
+% <dimtime> is the dimension that is the time dimension
+% <typicalgain> is a typical value for the gain in each time-series
+% <noisereg> is [] or a set of noise regressors (cell vector of matrices)
 %
-% this is an internal function called by analyzePRF.m.  this function constructs a 
-% GLM design matrix based on <stimulus> and then uses GLMdenoisedata.m to determine 
-% the optimal set of noise regressors.  these regressors are returned in <noisereg>.
+% this is an internal function called by analyzePRF.m.  this function returns <seeds>
+% as a matrix of dimensions X x Y x Z x parameters (or XYZ x parameters)
+% with the best seed from the super-grid.  also, returns <rvalues> as X x Y x Z
+% (or XYZ x 1) with the corresponding correlation (r) values.
 %
-% in case you want to see the results of GLMdenoisedata.m, the figure output and 
-% the results of GLMdenoisedata.m are saved to temporary files (as reported to the
-% command window).
+% history:
+% 2015/02/07 - make less memory intensive
+
+% internal notes:
+% - note that the gain seed is fake (it is not set the correct value but instead
+%   to the <typicalgain>)
 
 % internal constants
-corrthresh = .9;  % used in determining which apertures are the same
+eccs = [0 0.00551 0.014 0.0269 0.0459 0.0731 0.112 0.166 0.242 0.348 0.498 0.707 1];
+angs = linspacecircular(0,2*pi,16);
+expts = [0.5 0.25 0.125];
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% figure out GLM design matrix
+% calc
+numvxs = prod(sizefull(data{1},dimdata));  % total number of voxels
 
-% concatenate everything and drop the dummy column (X is pixels x frames)
-X = catcell(1,stimulus)';
-X(end,:) = [];
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% calculate a long list of potential seeds
 
-% figure out where blanks are (logical vector, 1 x frames)
-blanks = all(X==0,1);
+% calc
+resmx = max(res);
 
-% normalize each frame (in preparation for computing correlations)
-X = unitlength(X,1,[],0);
-X(:,blanks) = 0;
+% calculate sigma gridding (pRF size is 1 px, 2 px, 4 px, ..., up to resmx)
+maxn = floor(log2(resmx));
+ssindices = 2.^(0:maxn);
 
-% initialize the result (this will grow in size on-the-fly)
-glmdesign = zeros(size(X,2),0);
-
-% do the loop
-wh = find(~blanks);
+% construct full list of seeds (seeds x params) [R C S G N]
+fprintf('constructing seeds.\n');
+allseeds = zeros(length(eccs)*length(angs)*length(ssindices)*length(expts),5);
 cnt = 1;
-while ~isempty(wh)
-  ix = wh(1);                        % pick the first one to process
-  corrs = X(:,ix)' * X;              % compute correlation with all frames
-  spots = find(corrs > corrthresh);  % any frame with r > corrthresh counts as the same
-%%%  fprintf('cnt=%d: numspots=%d\n',cnt,length(spots));
-  glmdesign(spots,cnt) = 1;          % add to design matrix
-  X(:,spots) = 0;                    % blank out (since we're done with those columns)
-  blanks(spots) = 1;                 % update the list of blanks
-  wh = find(~blanks);
-  cnt = cnt + 1;
+for p=1:length(eccs)
+  for q=1:length(angs)
+    if p==1 && q>1  % for the center-of-gaze, only do the first angle
+      continue;
+    end
+    for s=1:length(ssindices)
+      for r=1:length(expts)
+        allseeds(cnt,:) = [(1+res(1))/2 - sin(angs(q)) * (eccs(p)*resmx) ...
+                           (1+res(2))/2 + cos(angs(q)) * (eccs(p)*resmx) ...
+                           ssindices(s)*sqrt(expts(r)) 1 expts(r)];
+        cnt = cnt + 1;
+      end
+    end
+  end
 end
+allseeds(cnt:end,:) = [];  % chop because of the omission above
 
-% finally, un-concatenate the results
-glmdesign = splitmatrix(glmdesign,1,cellfun(@(x) size(x,1),stimulus));
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% generate the predicted time-series for each seed
 
-% clean up
-clear X;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% run GLMdenoise to get the noise regressors
-
-% what directory to save results to?
-glmdenoisedir = [tempname];
-assert(mkdir(glmdenoisedir));
-
-% call GLMdenoise
-fprintf('using GLMdenoise figure directory %s\n',[glmdenoisedir '/GLMdenoisefigures']);
-
-% prep
-hrfmodel = 'assume';
-hrfknobs = [];
-
-% run it
-results = GLMdenoisedata(glmdesign,data,tr,tr,hrfmodel,hrfknobs, ...
-                         struct('numboots',0), ...
-                         [glmdenoisedir '/GLMdenoisefigures']);
-
-% get the noise regressors
-noisereg = cellfun(@(x) x(:,1:results.pcnum),results.pcregressors,'UniformOutput',0);
-
-% save 'results' to a file
-file0 = [glmdenoisedir '/GLMdenoise.mat'];
-fprintf('saving GLMdenoise results to %s (in case you want them).\n',file0);
-results = rmfield(results,{'pcweights' 'models' 'modelse'});  % remove some boring fields
-save(file0,'results','noisereg','glmdesign');
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% quick visualization
-
-for p=1:length(glmdesign)
-  figureprep([100 100 700 700]); hold on;
-  imagesc(glmdesign{p}); colormap(gray);
-  axis image tight;
-  set(gca,'YDir','reverse');
-  title(sprintf('run %02d',p));
-  figurewrite(sprintf('glmdesign%02d',p),[],[],glmdenoisedir);
+% generate predicted time-series [note that some time-series are all 0]
+predts = zeros(sum(cellfun(@(x) size(x,1),stimulus)),size(allseeds,1),'single');  % time x seeds
+temp = catcell(1,stimulus);
+fprintf('generating super-grid time-series...'); tic
+parfor p=1:size(allseeds,1)
+  predts(:,p) = modelfun(allseeds(p,:),temp);
 end
+fprintf('done.'); toc
+clear temp;
+
+% % inspect for sanity on range and fineness [OBSOLETE]
+% figure;
+% for r=1:4:length(rrindices)
+%   for c=1:4:length(ccindices)
+%     for s=1:length(ssindices)
+%       cnt = (r-1)*(length(ccindices)*length(ssindices)) + (c-1)*length(ssindices) + s;
+%       clf;
+%       plot(predts(:,cnt)');
+%       title(sprintf('r=%d, c=%d, s=%d',r,c,s));
+%       pause;
+%     end
+%   end
+% end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% prepare data and model predictions
+
+% construct polynomials, noise regressors, and projection matrix
+pregressors = {};
+for p=1:length(maxpolydeg)
+  pregressors{p} = constructpolynomialmatrix(size(data{p},dimtime),0:maxpolydeg(p));
+  if ~isempty(noisereg)
+    pregressors{p} = cat(2,pregressors{p},noisereg{p});
+  end
+end
+pmatrix = projectionmatrix(blkdiag(pregressors{:}));
+
+% project out and scale to unit length
+predts = unitlength(pmatrix*predts,                                1,[],0);  % time x seeds   [NOTE: some are all NaN]
+  % OLD: datats = unitlength(pmatrix*squish(catcell(dimtime,data),dimdata)',1,[],0);  % time x voxels
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% find the seed with the max correlation
+
+% compute correlation and find maximum for each voxel
+chunks = chunking(1:numvxs,100);
+rvalues = {};
+bestseedix = {};
+fprintf('finding best seed for each voxel.\n');
+parfor p=1:length(chunks)
+
+  % project out and scale to unit length
+  datats = unitlength(pmatrix*catcell(2,cellfun(@(x) subscript(squish(x,dimdata),{chunks{p} ':'}),data,'UniformOutput',0))',1,[],0);  % time x voxels
+
+  % voxels x 1 with index of the best seed (max corr)
+  [rvalues{p},bestseedix{p}] = max(datats'*predts,[],2);  % voxels x seeds -> max corr along dim 2 [NaN is ok]
+
+end
+rvalues = catcell(1,rvalues);        % voxels x 1
+bestseedix = catcell(1,bestseedix);  % voxels x 1
+
+% prepare output
+rvalues = reshape(rvalues,[sizefull(data{1},dimdata) 1]);
+seeds = allseeds(bestseedix,:);  % voxels x parameters
+seeds(:,4) = typicalgain;        % set gain to typical gain
+seeds = reshape(seeds,[sizefull(data{1},dimdata) size(allseeds,2)]);
+
+
+
+
+
+%  predts(:,p) = modelfun([allseeds(p,:) flatten(hrf)],temp);
+% <hrf> is T x 1 with the HRF
