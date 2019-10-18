@@ -113,6 +113,7 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
+addpath(genpath(pwd));
 a1 = analyzePRF(stimulus,data,tr,struct('seedmode',-2));
 
 % prepare outputs
