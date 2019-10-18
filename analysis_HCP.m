@@ -100,7 +100,8 @@ for p=1:6
 %  system([wbcmd ' -help'])
   disp('loading');
 end
-
+disp(data{1}(100));
+disp(data{6}(200));
 % deal with subsetting
 switch typ
 case 1
@@ -111,9 +112,8 @@ case 3
   stimulus = cellfun(@(x) x(:,:,151:300),stimulus,'UniformOutput',0);
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
-exit;
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',2));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',-2));
 
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize'};
