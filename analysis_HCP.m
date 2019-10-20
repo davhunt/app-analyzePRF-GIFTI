@@ -102,6 +102,8 @@ for p=1:6
 end
 disp(data{1}(100));
 disp(data{6}(200));
+disp(size(data{1}(:)));
+disp(size(data{2}(:)));
 % deal with subsetting
 switch typ
 case 1
@@ -124,7 +126,10 @@ allresults(:,2,wh,typ) = a1.ecc*pxtodeg;     % convert to degrees
 allresults(:,3,wh,typ) = a1.gain;
 allresults(:,4,wh,typ) = a1.meanvol;
 allresults(:,5,wh,typ) = a1.R2;
-allresults(:,6,wh,typ) = a1.rfsize*pxtodeg;  % convert to degrees
+allresults(:,6,wh,typ) = a1.rfsize*pxtodeg; % convert to degrees
+
+disp(size(allresults(:,6,wh,typ)));
+
 
 % one final modification to the outputs:
 % whenever eccentricity is exactly 0, we set angle to NaN since it is ill-defined.
