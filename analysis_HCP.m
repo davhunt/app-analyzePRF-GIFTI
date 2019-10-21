@@ -155,7 +155,7 @@ a2.img = make_nii(allresults(:,4,1,1),[2.00 2.00 2.00]);
 save_nii(a2.img,'meanvol.nii.gz');
 
 a2.img = make_nii(allresults(:,5,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'R2.nii.gz');
+save_nii(a2.img,'r2.nii.gz');
 
 a2.img = make_nii(allresults(:,6,1,1),[2.00 2.00 2.00]);
 save_nii(a2.img,'rfWidth.nii.gz');
