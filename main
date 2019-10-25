@@ -29,6 +29,18 @@ ls /usr/lib64/*-2.0.so.0
 #time singularity exec docker://davhunt/wb_freesurfer:2.0 bash -c " echo $LD_LIBRARY_PATH && echo $PATH && ./compiled/main"
 time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
+fsdir=$(jq -r .output config.json)
+echo "creating vtks"
+mkdir -p prf/surfaces
+mris_convert --to-scanner $fsdir/surf/lh.white prf/surfaces/lh.white.vtk
+mris_convert --to-scanner $fsdir/surf/rh.white prf/surfaces/rh.white.vtk
+mris_convert --to-scanner $fsdir/surf/lh.pial prf/surfaces/lh.pial.vtk
+mris_convert --to-scanner $fsdir/surf/rh.pial prf/surfaces/rh.pial.vtk
+mris_convert --to-scanner $fsdir/surf/lh.sphere prf/surfaces/lh.sphere.vtk
+mris_convert --to-scanner $fsdir/surf/rh.sphere prf/surfaces/rh.sphere.vtk
+mris_convert --to-scanner $fsdir/surf/lh.inflated prf/surfaces/lh.inflated.vtk
+mris_convert --to-scanner $fsdir/surf/rh.inflated prf/surfaces/rh.inflated.vtk
+
 #bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
 
 # /N/soft/rhel7/singularity/2.6.1/lib:/N/soft/rhel7/mrtrix/3.0/mrtrix3/lib:/N/soft/rhel7/fsl/5.0.11d/lib:/N/soft/rhel7/fsl/5.0.11d/extras/lib:/N/soft/rhel7/libmng/2.0.3/lib:/N/soft/rhel7/lcms/2.8/lib:/N/soft/rhel7/libpng/1.6.29/lib:/N/soft/rhel7/vtk/8.1.1/lib:/N/soft/rhel7/freesurfer/6.0.0/freesurfer/lib:/N/soft/rhel7/perl/gnu/5.24.1/lib:/N/soft/rhel7/python/2.7.13a/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/ipp/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/tbb/lib/intel64/gcc4.7:/N/soft/rhel7/intel/18.0.2/debugger_2018/iga/lib:/N/soft/rhel7/intel/18.0.2/debugger_2018/libipt/intel64/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal/lib/intel64_lin:/N/soft/rhel7/gcc/6.3.0/lib64:/N/soft/rhel7/gcc/6.3.0/lib:/opt/thinlinc/lib64:/opt/thinlinc/lib:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64
