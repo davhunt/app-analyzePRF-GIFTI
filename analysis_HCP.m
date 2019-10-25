@@ -115,7 +115,7 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',-2));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',0));
 
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize'};
@@ -155,7 +155,7 @@ a2.img = make_nii(allresults(:,4,1,1),[2.00 2.00 2.00]);
 save_nii(a2.img,'meanvol.nii.gz');
 
 a2.img = make_nii(allresults(:,5,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'R2.nii.gz');
+save_nii(a2.img,'r2.nii.gz');
 
 a2.img = make_nii(allresults(:,6,1,1),[2.00 2.00 2.00]);
 save_nii(a2.img,'rfWidth.nii.gz');
