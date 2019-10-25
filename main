@@ -30,16 +30,7 @@ ls /usr/lib64/*-2.0.so.0
 time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
 fsdir=$(jq -r .output config.json)
-echo "creating vtks"
-mkdir -p prf/surfaces
-mris_convert --to-scanner $fsdir/surf/lh.white prf/surfaces/lh.white.vtk
-mris_convert --to-scanner $fsdir/surf/rh.white prf/surfaces/rh.white.vtk
-mris_convert --to-scanner $fsdir/surf/lh.pial prf/surfaces/lh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/rh.pial prf/surfaces/rh.pial.vtk
-mris_convert --to-scanner $fsdir/surf/lh.sphere prf/surfaces/lh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/rh.sphere prf/surfaces/rh.sphere.vtk
-mris_convert --to-scanner $fsdir/surf/lh.inflated prf/surfaces/lh.inflated.vtk
-mris_convert --to-scanner $fsdir/surf/rh.inflated prf/surfaces/rh.inflated.vtk
+time singularity exec -e docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh $fsdir
 
 #bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
 
