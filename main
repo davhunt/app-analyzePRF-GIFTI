@@ -29,6 +29,8 @@ ls /usr/lib64/*-2.0.so.0
 #time singularity exec docker://davhunt/wb_freesurfer:2.0 bash -c " echo $LD_LIBRARY_PATH && echo $PATH && ./compiled/main"
 time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
+time singularity exec -e -w docker://brainlife/dipy:0.16.0 ./create_curv.py
+
 fsdir=$(jq -r .output config.json)
 time singularity exec -e docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh $fsdir
 

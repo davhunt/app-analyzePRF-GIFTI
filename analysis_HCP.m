@@ -140,24 +140,66 @@ allresults(allresults(:,2)==0,1) = NaN;
 allresults = permute(reshape(allresults,[91282 1 1 6]),[1 4 2 3]);
 
 mkdir('prf');
-cd 'prf'
+%cd 'prf'
 
-a2.img = make_nii(allresults(:,1,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'polarAngle.nii.gz');
+%a2.img = make_nii(allresults(1:29696,1,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'lh.polarAngle.nii.gz');
+%a2.img = make_nii(allresults(29697:59412,1,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'rh.polarAngle.nii.gz');
 
-a2.img = make_nii(allresults(:,2,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'eccentricity.nii.gz');
+%a2.img = make_nii(allresults(1:29696,2,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'lh.eccentricity.nii.gz');
+%a2.img = make_nii(allresults(29697:59412,2,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'rh.eccentricity.nii.gz');
 
-a2.img = make_nii(allresults(:,3,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'gain.nii.gz');
+%a2.img = make_nii(allresults(1:29696,3,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'lh.gain.nii.gz');
+%a2.img = make_nii(allresults(29697:59412,3,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'rh.gain.nii.gz');
 
-a2.img = make_nii(allresults(:,4,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'meanvol.nii.gz');
+%a2.img = make_nii(allresults(1:29696,4,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'lh.meanvol.nii.gz');
+%a2.img = make_nii(allresults(29697:59412,4,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'rh.meanvol.nii.gz');
 
-a2.img = make_nii(allresults(:,5,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'r2.nii.gz');
+%a2.img = make_nii(allresults(1:29696,5,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'lh.r2.nii.gz');
+%a2.img = make_nii(allresults(29697:59412,5,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'rh.r2.nii.gz');
 
-a2.img = make_nii(allresults(:,6,1,1),[2.00 2.00 2.00]);
-save_nii(a2.img,'rfWidth.nii.gz');
+%a2.img = make_nii(allresults(1:29696,6,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'lh.rfWidth.nii.gz');
+%a2.img = make_nii(allresults(29697:59412,6,1,1),[2.00 2.00 2.00]);
+%save_nii(a2.img,'rh.rfWidth.nii.gz');
 
-cd ..
+%cd ..
+
+
+lh_polarAngle = allresults(1:29696,1,1,1);
+rh_polarAngle = allresults(29697:59412,1,1,1);
+
+lh_eccentricity = allresults(1:29696,1,1,1);
+rh_eccentricity = allresults(29697:59412,1,1,1);
+
+lh_gain = allresults(1:29696,1,1,1);
+rh_gain = allresults(29697:59412,1,1,1);
+
+lh_meanvol = allresults(1:29696,1,1,1);
+rh_meanvol = allresults(29697:59412,1,1,1);
+lh_r2 = allresults(1:29696,1,1,1);
+rh_r2 = allresults(29697:59412,1,1,1);
+lh_rfWidth = allresults(1:29696,1,1,1);
+rh_rfWidth = allresults(29697:59412,1,1,1);
+
+save('lh_polarAngle.mat', 'lh_polarAngle');
+save('rh_polarAngle.mat', 'rh_polarAngle');
+save('lh_eccentricity.mat', 'lh_eccentricity');
+save('rh_eccentricity.mat', 'rh_eccentricity');
+save('lh_gain.mat', 'lh_gain');
+save('rh_gain.mat', 'rh_gain');
+save('lh_meanvol.mat', 'lh_meanvol');
+save('rh_meanvol.mat', 'rh_meanvol');
+save('lh_r2.mat', 'lh_r2');
+save('rh_r2.mat', 'rh_r2');
+save('lh_rfWidth.mat', 'lh_rfWidth');
+save('rh_rfWidth.mat', 'rh_rfWidth');
