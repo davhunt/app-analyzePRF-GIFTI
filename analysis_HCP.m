@@ -178,18 +178,18 @@ mkdir('prf');
 lh_polarAngle = allresults(1:29696,1,1,1);
 rh_polarAngle = allresults(29697:59412,1,1,1);
 
-lh_eccentricity = allresults(1:29696,1,1,1);
-rh_eccentricity = allresults(29697:59412,1,1,1);
+lh_eccentricity = allresults(1:29696,2,1,1);
+rh_eccentricity = allresults(29697:59412,2,1,1);
 
-lh_gain = allresults(1:29696,1,1,1);
-rh_gain = allresults(29697:59412,1,1,1);
+lh_gain = allresults(1:29696,3,1,1);
+rh_gain = allresults(29697:59412,3,1,1);
 
-lh_meanvol = allresults(1:29696,1,1,1);
-rh_meanvol = allresults(29697:59412,1,1,1);
-lh_r2 = allresults(1:29696,1,1,1);
-rh_r2 = allresults(29697:59412,1,1,1);
-lh_rfWidth = allresults(1:29696,1,1,1);
-rh_rfWidth = allresults(29697:59412,1,1,1);
+lh_meanvol = allresults(1:29696,4,1,1);
+rh_meanvol = allresults(29697:59412,4,1,1);
+lh_r2 = allresults(1:29696,5,1,1);
+rh_r2 = allresults(29697:59412,5,1,1);
+lh_rfWidth = allresults(1:29696,6,1,1);
+rh_rfWidth = allresults(29697:59412,6,1,1);
 
 save('lh_polarAngle.mat', 'lh_polarAngle');
 save('rh_polarAngle.mat', 'rh_polarAngle');
