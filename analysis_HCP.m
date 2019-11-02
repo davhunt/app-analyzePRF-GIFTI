@@ -139,9 +139,6 @@ allresults(allresults(:,2)==0,1) = NaN;
 %allresults = permute(reshape(allresults,[91282 184 3 6]),[1 4 2 3]);
 allresults = permute(reshape(allresults,[91282 1 1 6]),[1 4 2 3]);
 
-mkdir('prf');
-%cd 'prf'
-
 %a2.img = make_nii(allresults(1:29696,1,1,1),[2.00 2.00 2.00]);
 %save_nii(a2.img,'lh.polarAngle.nii.gz');
 %a2.img = make_nii(allresults(29697:59412,1,1,1),[2.00 2.00 2.00]);

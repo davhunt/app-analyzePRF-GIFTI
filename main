@@ -27,10 +27,12 @@ ls /usr/lib64/*-2.0.so.0
 #export PATH=$PATH:$LD_LIBRARY_PATH
 
 #time singularity exec docker://davhunt/wb_freesurfer:2.0 bash -c " echo $LD_LIBRARY_PATH && echo $PATH && ./compiled/main"
+mkdir -p prf/benson14_surfaces
 time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
 time singularity exec -e -w docker://brainlife/dipy:0.16.0 ./create_curv.py
 
+rm -f ?h.*.mat
 
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
