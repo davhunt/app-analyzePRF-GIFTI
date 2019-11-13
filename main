@@ -3,48 +3,22 @@
 #PBS -N pRF
 #PBS -V
 
-#fmri=$(jq -r .gifti_dir config.json)
-#stim=$(jq -r .stim config.json)
-
-#export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64
-#export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64
-
-#time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/main
 module unload matlab
 module load matlab/2017a
 
-echo ${LD_LIBRARY_PATH}
-#export LD_LIBRARY_PATH=`pwd`/workbench/libs_rh_linux64:`pwd`/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH
+fsdir=$(jq -r .output config.json)
+
 export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH
-#export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64_software_opengl:$LD_LIBRARY_PATH
-echo $LD_LIBRARY_PATH
-ls /usr/lib64/*-2.0.so.0
+
+mkdir -p prf/benson14_surfaces
 
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
+echo $FREESURFER_LICENSE > license.txt
 
-#time singularity exec --writable -e docker://davhunt/wb_freesurfer:1.0 bash -c "echo $FREESURFER_LICENSE > /usr/local/freesurfer/license.txt && ./compiled/main"
-
-#export PATH=$PATH:$LD_LIBRARY_PATH
-
-#time singularity exec docker://davhunt/wb_freesurfer:2.0 bash -c " echo $LD_LIBRARY_PATH && echo $PATH && ./compiled/main"
-mkdir -p prf/benson14_surfaces
 time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
 time singularity exec -e -w docker://brainlife/dipy:0.16.0 ./create_curv.py
 
 rm -f ?h.*.mat
 
-[ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
-echo $FREESURFER_LICENSE > license.txt
-
-fsdir=$(jq -r .output config.json)
-
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh $fsdir
-
-#bash -c "export PATH=$PATH:/N/u/davhunt/Carbonate/workbench/bin_rh_linux64:/N/u/davhunt/Carbonate/workbench/exe_rh_linux64 &&
-
-# /N/soft/rhel7/singularity/2.6.1/lib:/N/soft/rhel7/mrtrix/3.0/mrtrix3/lib:/N/soft/rhel7/fsl/5.0.11d/lib:/N/soft/rhel7/fsl/5.0.11d/extras/lib:/N/soft/rhel7/libmng/2.0.3/lib:/N/soft/rhel7/lcms/2.8/lib:/N/soft/rhel7/libpng/1.6.29/lib:/N/soft/rhel7/vtk/8.1.1/lib:/N/soft/rhel7/freesurfer/6.0.0/freesurfer/lib:/N/soft/rhel7/perl/gnu/5.24.1/lib:/N/soft/rhel7/python/2.7.13a/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/ipp/lib/intel64:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/compiler/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64_lin:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/tbb/lib/intel64/gcc4.7:/N/soft/rhel7/intel/18.0.2/debugger_2018/iga/lib:/N/soft/rhel7/intel/18.0.2/debugger_2018/libipt/intel64/lib:/N/soft/rhel7/intel/18.0.2/compilers_and_libraries_2018.2.199/linux/daal/lib/intel64_lin:/N/soft/rhel7/gcc/6.3.0/lib64:/N/soft/rhel7/gcc/6.3.0/lib:/opt/thinlinc/lib64:/opt/thinlinc/lib:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/usr/local/lib:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/app-analyzePRF-GIFTI/workbench/libs_rh_linux64
-
-#time singularity exec -e docker://brainlife/connectome_workbench:1.3.0 bash -c "module unload matlab && module load matlab/2017a && printenv && ./compiled/main"
-
-#time singularity exec -e docker://brainlife/afni ./align.sh
