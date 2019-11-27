@@ -103,4 +103,12 @@ save('rh_r2.mat', 'rh_r2');
 save('lh_rfWidth.mat', 'lh_rfWidth');
 save('rh_rfWidth.mat', 'rh_rfWidth');
 
+for hemi = {'lh', 'rh'}
+  for prf = {'polarAngle','eccentricity','gain','meanvol','r2','rfWidth'}
+    gii = gifti;
+    gii.cdata = eval([char(hemi),'_',char(prf)])';
+    save_gifti(gii,strcat('benson14_surfaces/',hemi,'.',prf,'.gii'));
+  end
+end
+
 end
