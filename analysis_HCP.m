@@ -1,11 +1,11 @@
 function analysis_HCP(gifti_dir)
 
-runs = {'tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETCW_7T_PA/tfMRI_RETCW_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETEXP_7T_AP/tfMRI_RETEXP_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETCON_7T_PA/tfMRI_RETCON_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETBAR1_7T_AP/tfMRI_RETBAR1_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETBAR2_7T_PA/tfMRI_RETBAR2_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii'};
+runs = {'tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_1.6mm_MSMAll_hp2000_clean.dtseries.nii' ...
+        'tfMRI_RETCW_7T_PA/tfMRI_RETCW_7T_PA_Atlas_1.6mm_MSMAll_hp2000_clean.dtseries.nii' ...
+        'tfMRI_RETEXP_7T_AP/tfMRI_RETEXP_7T_AP_Atlas_1.6mm_MSMAll_hp2000_clean.dtseries.nii' ...
+        'tfMRI_RETCON_7T_PA/tfMRI_RETCON_7T_PA_Atlas_1.6mm_MSMAll_hp2000_clean.dtseries.nii' ...
+        'tfMRI_RETBAR1_7T_AP/tfMRI_RETBAR1_7T_AP_Atlas_1.6mm_MSMAll_hp2000_clean.dtseries.nii' ...
+        'tfMRI_RETBAR2_7T_PA/tfMRI_RETBAR2_7T_PA_Atlas_1.6mm_MSMAll_hp2000_clean.dtseries.nii'};
 
 subjs = matchfiles(gifti_dir);
 tr = 1;                % temporal sampling rate in seconds
@@ -55,7 +55,7 @@ a1 = analyzePRF(stimulus,data,tr,struct('seedmode',-2));
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize'};
 %allresults = zeros(91282,length(quants),length(subjs),3,'single');
 % 91282 grayordinates x 6 quants x 184 subjects x 3 model fits
-allresults = zeros(91282,length(quants),length(subjs),1,'single');
+allresults = zeros(170494,length(quants),length(subjs),1,'single');
 allresults(:,1,wh,typ) = a1.ang;
 allresults(:,2,wh,typ) = a1.ecc*pxtodeg;     % convert to degrees
 allresults(:,3,wh,typ) = a1.gain;
@@ -69,26 +69,26 @@ allresults(:,6,wh,typ) = a1.rfsize*pxtodeg; % convert to degrees
 allresults = squish(permute(allresults,[1 3 4 2]),1);
 allresults(allresults(:,2)==0,1) = NaN;
 %allresults = permute(reshape(allresults,[91282 184 3 6]),[1 4 2 3]);
-allresults = permute(reshape(allresults,[91282 1 1 6]),[1 4 2 3]);
+allresults = permute(reshape(allresults,[170494 1 1 6]),[1 4 2 3]);
 
-% first 29696 grayordinates in CIFTI are lh, next 29716 are rh
-lh_polarAngle = allresults(1:29696,1,1,1);
-rh_polarAngle = allresults(29697:59412,1,1,1);
+% first 54216 grayordinates in CIFTI are lh, next 54225 are rh
+lh_polarAngle = allresults(1:54216,1,1,1);
+rh_polarAngle = allresults(54217:108441,1,1,1);
 
-lh_eccentricity = allresults(1:29696,2,1,1);
-rh_eccentricity = allresults(29697:59412,2,1,1);
+lh_eccentricity = allresults(1:54216,1,1,1);
+rh_eccentricity = allresults(54217:108441,1,1,1);
 
-lh_gain = allresults(1:29696,3,1,1);
-rh_gain = allresults(29697:59412,3,1,1);
+lh_gain = allresults(1:54216,1,1,1);
+rh_gain = allresults(54217:108441,1,1,1);
 
-lh_meanvol = allresults(1:29696,4,1,1);
-rh_meanvol = allresults(29697:59412,4,1,1);
+lh_meanvol = allresults(1:54216,1,1,1);
+rh_meanvol = allresults(54217:108441,1,1,1);
 
-lh_r2 = allresults(1:29696,5,1,1);
-rh_r2 = allresults(29697:59412,5,1,1);
+lh_r2 = allresults(1:54216,1,1,1);
+rh_r2 = allresults(54217:108441,1,1,1);
 
-lh_rfWidth = allresults(1:29696,6,1,1);
-rh_rfWidth = allresults(29697:59412,6,1,1);
+lh_rfWidth = allresults(1:54216,1,1,1);
+rh_rfWidth = allresults(54217:108441,1,1,1);
 
 save('lh_polarAngle.mat', 'lh_polarAngle');
 save('rh_polarAngle.mat', 'rh_polarAngle');
