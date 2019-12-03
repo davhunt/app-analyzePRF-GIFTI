@@ -90,24 +90,14 @@ rh_r2 = allresults(54217:108441,5,1,1);
 lh_rfWidth = allresults(1:54216,6,1,1);
 rh_rfWidth = allresults(54217:108441,6,1,1);
 
-save('lh_polarAngle.mat', 'lh_polarAngle');
-save('rh_polarAngle.mat', 'rh_polarAngle');
-save('lh_eccentricity.mat', 'lh_eccentricity');
-save('rh_eccentricity.mat', 'rh_eccentricity');
-save('lh_gain.mat', 'lh_gain');
-save('rh_gain.mat', 'rh_gain');
-save('lh_meanvol.mat', 'lh_meanvol');
-save('rh_meanvol.mat', 'rh_meanvol');
-save('lh_r2.mat', 'lh_r2');
-save('rh_r2.mat', 'rh_r2');
-save('lh_rfWidth.mat', 'lh_rfWidth');
-save('rh_rfWidth.mat', 'rh_rfWidth');
+save('prf_results.mat', 'lh_polarAngle', 'rh_polarAngle', 'lh_eccentricity', 'rh_eccentricity', ...
+  'lh_gain', 'rh_gain', 'lh_meanvol', 'rh_meanvol', 'lh_r2', 'rh_r2', 'lh_rfWidth', 'rh_rfWidth');
 
 for hemi = {'lh', 'rh'}
   for prf = {'polarAngle','eccentricity','gain','meanvol','r2','rfWidth'}
     gii = gifti;
     gii.cdata = eval([char(hemi),'_',char(prf)]);
-    save_gifti(gii,strcat('benson14_surfaces/',char(hemi),'.',char(prf),'.gii'));
+    save_gifti(gii,strcat('prf/benson14_surfaces/',char(hemi),'.',char(prf),'.gii'));
   end
 end
 
