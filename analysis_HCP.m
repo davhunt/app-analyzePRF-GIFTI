@@ -75,20 +75,20 @@ allresults = permute(reshape(allresults,[170494 1 1 6]),[1 4 2 3]);
 lh_polarAngle = allresults(1:54216,1,1,1);
 rh_polarAngle = allresults(54217:108441,1,1,1);
 
-lh_eccentricity = allresults(1:54216,1,1,1);
-rh_eccentricity = allresults(54217:108441,1,1,1);
+lh_eccentricity = allresults(1:54216,2,1,1);
+rh_eccentricity = allresults(54217:108441,2,1,1);
 
-lh_gain = allresults(1:54216,1,1,1);
-rh_gain = allresults(54217:108441,1,1,1);
+lh_gain = allresults(1:54216,3,1,1);
+rh_gain = allresults(54217:108441,3,1,1);
 
-lh_meanvol = allresults(1:54216,1,1,1);
-rh_meanvol = allresults(54217:108441,1,1,1);
+lh_meanvol = allresults(1:54216,4,1,1);
+rh_meanvol = allresults(54217:108441,4,1,1);
 
-lh_r2 = allresults(1:54216,1,1,1);
-rh_r2 = allresults(54217:108441,1,1,1);
+lh_r2 = allresults(1:54216,5,1,1);
+rh_r2 = allresults(54217:108441,5,1,1);
 
-lh_rfWidth = allresults(1:54216,1,1,1);
-rh_rfWidth = allresults(54217:108441,1,1,1);
+lh_rfWidth = allresults(1:54216,6,1,1);
+rh_rfWidth = allresults(54217:108441,6,1,1);
 
 save('lh_polarAngle.mat', 'lh_polarAngle');
 save('rh_polarAngle.mat', 'rh_polarAngle');
@@ -106,8 +106,8 @@ save('rh_rfWidth.mat', 'rh_rfWidth');
 for hemi = {'lh', 'rh'}
   for prf = {'polarAngle','eccentricity','gain','meanvol','r2','rfWidth'}
     gii = gifti;
-    gii.cdata = eval([char(hemi),'_',char(prf)])';
-    save_gifti(gii,strcat('benson14_surfaces/',hemi,'.',prf,'.gii'));
+    gii.cdata = eval([char(hemi),'_',char(prf)]);
+    save_gifti(gii,strcat('benson14_surfaces/',char(hemi),'.',char(prf),'.gii'));
   end
 end
 
