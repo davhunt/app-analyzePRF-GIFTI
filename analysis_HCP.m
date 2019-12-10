@@ -51,6 +51,15 @@ end
 % fit the models
 a1 = analyzePRF(stimulus,data,tr,struct('seedmode',-2));
 
+% convert pAngle results to standard pRF convention
+for i = 1:size(a1.ang)
+  if a1.ang(i) >= 0.0 && a1.ang(i) <= 90.0
+    a1.ang(i) = -a1.ang(i) + 90;
+  elseif a1.ang(i) >= 270 && a1.ang(i) <= 360
+    a1.ang(i) = -a1.ang(i) + 270;
+  end
+end
+
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize'};
 %allresults = zeros(91282,length(quants),length(subjs),3,'single');
