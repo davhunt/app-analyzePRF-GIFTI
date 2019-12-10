@@ -18,4 +18,6 @@ setenv('PATH', [PATH ':/usr/bin']);
 % compute pRF
 analysis_HCP(config.gifti_dir);
 
+createSurfs();
+
 end
