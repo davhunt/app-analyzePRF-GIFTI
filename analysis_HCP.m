@@ -49,7 +49,7 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',-2));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[0 1 2]));
 
 % convert pAngle results to standard pRF convention (0-180 deg = UVM -> L/R HM -> LVM)
 for i = 1:size(a1.ang)
