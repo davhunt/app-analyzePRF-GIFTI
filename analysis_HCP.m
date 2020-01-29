@@ -36,6 +36,7 @@ LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
 
 for p=1:6
   data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
+  data{p} = data{p}(1:59412,:)
 end
 
 % deal with subsetting
@@ -49,7 +50,7 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[0 1 2]));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[2]));
 
 % convert pAngle results to standard pRF convention (0-180 deg = UVM -> L/R HM -> LVM)
 for i = 1:size(a1.ang)
@@ -66,7 +67,7 @@ end
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize'};
 %allresults = zeros(91282,length(quants),length(subjs),3,'single');
 % 91282 grayordinates x 6 quants x 184 subjects x 3 model fits
-allresults = zeros(91282,length(quants),length(subjs),1,'single');
+allresults = zeros(59412,length(quants),length(subjs),1,'single');
 allresults(:,1,wh,typ) = a1.ang;
 allresults(:,2,wh,typ) = a1.ecc*pxtodeg;     % convert to degrees
 allresults(:,3,wh,typ) = a1.gain;
@@ -80,7 +81,7 @@ allresults(:,6,wh,typ) = a1.rfsize*pxtodeg; % convert to degrees
 allresults = squish(permute(allresults,[1 3 4 2]),1);
 allresults(allresults(:,2)==0,1) = NaN;
 %allresults = permute(reshape(allresults,[91282 184 3 6]),[1 4 2 3]);
-allresults = permute(reshape(allresults,[91282 1 1 6]),[1 4 2 3]);
+allresults = permute(reshape(allresults,[59412 1 1 6]),[1 4 2 3]);
 
 % first 29696 grayordinates in CIFTI are lh, next 29716 are rh
 lh_polarAngle = allresults(1:29696,1,1,1);
