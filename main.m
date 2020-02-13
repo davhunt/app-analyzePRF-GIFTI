@@ -9,6 +9,10 @@ if ~isdeployed
         addpath(genpath('/N/u/davhunt/Carbonate/NIfTI_cifti_matlab_tools'))
 end
 
+
+% load config.json
+config = loadjson('config.json');
+
 PATH = getenv('PATH');
 setenv('PATH', [PATH ':/usr/bin']);
 
