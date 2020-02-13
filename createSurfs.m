@@ -1,11 +1,17 @@
 function createSurfs(pial_L, pial_R, wm_L, wm_R, inflated_L, inflated_R)
 
 
-lh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.59k_fs_LR.surf.gii');
-rh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.59k_fs_LR.surf.gii');
+lh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.32k_fs_LR.surf.gii');
+rh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.32k_fs_LR.surf.gii');
 
-lh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.L.atlasroi.59k_fs_LR.shape.gii');
-rh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.R.atlasroi.59k_fs_LR.shape.gii');
+lh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.L.atlasroi.32k_fs_LR.shape.gii');
+rh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_preproc/MNINonLinear/fsaverage_LR32k/102816.R.atlasroi.32k_fs_LR.shape.gii');
+
+%lh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.L.sphere.59k_fs_LR.surf.gii');
+%rh_fsLR_fsaverage_reg = gifti('/N/u/davhunt/Carbonate/app-bayesian-retinotopy/resample_fsaverage/fs_LR-deformed_to-fsaverage.R.sphere.59k_fs_LR.surf.gii');
+
+%lh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.L.atlasroi.59k_fs_LR.shape.gii');
+%rh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.R.atlasroi.59k_fs_LR.shape.gii');
 
 %lh_59k_white = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.L.white_1.6mm_MSMAll.59k_fs_LR.surf.gii');
 %rh_59k_white = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.R.white_1.6mm_MSMAll.59k_fs_LR.surf.gii');
