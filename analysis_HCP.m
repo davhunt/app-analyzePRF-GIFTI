@@ -1,13 +1,17 @@
-function analysis_HCP(gifti_dir)
+function analysis_HCP(func_L, func_R)
 
-runs = {'tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETCW_7T_PA/tfMRI_RETCW_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETEXP_7T_AP/tfMRI_RETEXP_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETCON_7T_PA/tfMRI_RETCON_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETBAR1_7T_AP/tfMRI_RETBAR1_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
-        'tfMRI_RETBAR2_7T_PA/tfMRI_RETBAR2_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii'};
+%runs = {'tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
+%        'tfMRI_RETCW_7T_PA/tfMRI_RETCW_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
+%        'tfMRI_RETEXP_7T_AP/tfMRI_RETEXP_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
+%        'tfMRI_RETCON_7T_PA/tfMRI_RETCON_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
+%        'tfMRI_RETBAR1_7T_AP/tfMRI_RETBAR1_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
+%        'tfMRI_RETBAR2_7T_PA/tfMRI_RETBAR2_7T_PA_Atlas_MSMAll_hp2000_clean.dtseries.nii'};
 
-subjs = matchfiles(gifti_dir);
+func_L_gii = gifti(func_L);
+func_R_gii = gifti(func_R);
+
+%subjs = matchfiles(gifti_dir);
+
 tr = 1;                % temporal sampling rate in seconds
 pxtodeg = 16.0/200;    % conversion from pixels to degrees
 cwd = pwd
@@ -35,8 +39,9 @@ data = {};
 LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
 
 for p=1:6
-  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
-  data{p} = data{p}(1:59412,:)
+%  data{p} = double(getfield(ciftiopen([subjs{wh}(1:end-2) '/' runs{p}],wbcmd),'cdata'));
+%  data{p} = data{p}(1:59412,:);
+  data{p} = double(cat(1, func_L_gii.cdata(:,p*300-299:p*300), func_R_gii.cdata(:,p*300-299:p*300)));
 end
 
 % deal with subsetting
@@ -50,7 +55,7 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[2]));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[-2]));
 
 % convert pAngle results to standard pRF convention (0-180 deg = UVM -> L/R HM -> LVM)
 for i = 1:size(a1.ang)
@@ -67,7 +72,7 @@ end
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize'};
 %allresults = zeros(91282,length(quants),length(subjs),3,'single');
 % 91282 grayordinates x 6 quants x 184 subjects x 3 model fits
-allresults = zeros(59412,length(quants),length(subjs),1,'single');
+allresults = zeros(59412,length(quants),1,1,'single');
 allresults(:,1,wh,typ) = a1.ang;
 allresults(:,2,wh,typ) = a1.ecc*pxtodeg;     % convert to degrees
 allresults(:,3,wh,typ) = a1.gain;
@@ -109,7 +114,7 @@ for hemi = {'lh', 'rh'}
   for prf = {'polarAngle','eccentricity','gain','meanvol','r2','rfWidth'}
     gii = gifti;
     gii.cdata = eval([char(hemi),'_',char(prf)]);
-    save_gifti(gii,strcat('prf/benson14_surfaces/',char(hemi),'.',char(prf),'.gii'));
+    save_gifti(gii,strcat('prf/prf_surfaces/',char(hemi),'.',char(prf),'.gii'));
   end
 end
 

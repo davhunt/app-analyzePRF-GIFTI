@@ -1,7 +1,6 @@
 FROM brainlife/connectome_workbench:1.3.0
-#FROM brainlife/mcr:neurodebian1604-r2017a
 
-MAINTAINER Soichi Hayashi <hayashis@iu.edu>
+MAINTAINER David Hunt <davhunt@iu.edu>
 
 #download and untar freesurfer installation on /usr/local/freesurfer
 RUN apt-get update && apt-get install -y curl tcsh libglu1-mesa libgomp1 libjpeg62
@@ -9,9 +8,6 @@ RUN curl ftp://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-L
 
 #recon-all dependencies
 RUN apt-get update && apt-get install -y jq bc libsys-hostname-long-perl libglib2.0 libatlas-base-dev
-
-#install mcr r2012b on /usr/local/freesurfer/MCRv80
-#ADD MCRv80.tar.gz /usr/local/freesurfer
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && apt-get -qq install -y unzip xorg wget curl libstdc++6 && \
@@ -52,16 +48,6 @@ ENV PATH /usr/local/freesurfer/bin:/usr/local/freesurfer/fsfast/bin:/usr/local/f
 #make it work under singularity
 #mkdir shouldn't be needed on overlay enabled hosts - just add to singularity.conf (without --writable)
 RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft /scratch /mnt/share1 /share1
-
-#RUN add-apt-repository ppa:ubuntu-toolchain-r/test
-#RUN wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
-#RUN dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
-#RUN apt-get -f install
-#RUN apt-get install ppa-purge
-#RUN ppa-purge ppa:ubuntu-toolchain-r/test
-#RUN apt-get install libstdc++6
-#RUN apt-get update && apt-get upgrade && apt-get dist-upgrade
-#RUN apt-get install -y libxt6 libxmu6
 
 RUN touch /usr/local/freesurfer/license.txt && chmod 777 /usr/local/freesurfer/license.txt
 RUN mv /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6 /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6.old
