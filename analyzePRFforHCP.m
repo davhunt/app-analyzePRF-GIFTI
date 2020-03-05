@@ -90,7 +90,7 @@ allresults(:,5,wh,typ) = a1.R2;
 allresults(:,6,wh,typ) = a1.rfsize*pxtodeg; % convert to degrees
 
 % one final modification to the outputs:
-% whenever eccentricity is exactly 0, we set angle to NaN since it is ill-defined.
+% whenever eccentricity is exactly 0, we set polar angle to NaN since it is ill-defined.
 %allresults = squish(permute(allresults,[1 3 4 2]),3);  % 91282*184*3 x 6
 allresults = squish(permute(allresults,[1 3 4 2]),1);
 allresults(allresults(:,2)==0,1) = NaN;
