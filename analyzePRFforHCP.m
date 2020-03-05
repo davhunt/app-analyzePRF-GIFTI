@@ -58,18 +58,9 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[2]));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[-2]));
 
-% convert pAngle results to standard pRF convention (0-180 deg = UVM -> L/R HM -> LVM)
-for i = 1:size(a1.ang)
-  if a1.ang(i) >= 90.0 && a1.ang(i) <= 270.0
-    a1.ang(i) = a1.ang(i) - 90;
-  elseif a1.ang(i) >= 0.0 && a1.ang(i) < 90.0
-    a1.ang(i) = -a1.ang(i) + 90;
-  elseif a1.ang(i) > 270.0 && a1.ang(i) <= 360.0
-    a1.ang(i) = -a1.ang(i) + 450;
-  end
-end
+
 
 % convert pAngle results to standard pRF convention (0-180 deg = UVM -> L/R HM -> LVM)
 for i = 1:size(a1.ang)
