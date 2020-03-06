@@ -23,16 +23,30 @@ wh = 1;
 typ = 1;  % 1 is all runs, 2 is first half of each run, 3 is second half of each run
 
 % load stimulus apertures
+%aperturefiles = {strcat(pwd,'/apertures/RETCCWsmall.mat') ...
+%                 strcat(pwd,'/apertures/RETCWsmall.mat') ...
+%                 strcat(pwd,'/apertures/RETEXPsmall.mat') ...
+%                 strcat(pwd,'/apertures/RETCONsmall.mat') ...
+%                 strcat(pwd,'/apertures/RETBARsmall.mat')};
+
+%a1 = loadmulti(aperturefiles,'stim',4);
+%stimulus = splitmatrix(a1,4);
+%stimulus = stimulus([1 2 3 4 5 5]);
+%clear a1;
+
+
 aperturefiles = {strcat(pwd,'/apertures/RETCCWsmall.mat') ...
                  strcat(pwd,'/apertures/RETCWsmall.mat') ...
                  strcat(pwd,'/apertures/RETEXPsmall.mat') ...
                  strcat(pwd,'/apertures/RETCONsmall.mat') ...
+                 strcat(pwd,'/apertures/RETBARsmall.mat') ...
                  strcat(pwd,'/apertures/RETBARsmall.mat')};
-
-a1 = loadmulti(aperturefiles,'stim',4);
-stimulus = splitmatrix(a1,4);
-stimulus = stimulus([1 2 3 4 5 5]);
-clear a1;
+stimulus = {};
+for p=1:length(aperturefiles)
+  a1 = load(aperturefiles{p},'stim');
+  stimulus{p} = a1.stim;
+  clear a1;
+end
 
 data = {};
 LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
