@@ -24,4 +24,4 @@ time singularity exec -e -w docker://brainlife/dipy:0.16.0 ./create_curv.py
 
 rm -f prf_results.mat
 
-time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer:6.0.1 ./create_vtks.sh $fsdir
+time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer-mini:6.0.1 ./create_vtks.sh $fsdir
