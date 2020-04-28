@@ -53,5 +53,5 @@ bl dataset upload \
 
 
 rm right_*surf.gii left_*surf.gii right_data.gii left_data.gii
-if [ -d ${subj}_7T_RET_1.6mm_fix ]; then rm -r ${subj}_7T_RET_1.6mm_fix ${subj}_3T_Structural_1.6mm_preproc; fi
-if [ -d ${subj}_7T_RET_2mm_fix ]; then rm -r ${subj}_7T_RET_2mm_fix ${subj}_3T_Structural_preproc; fi
+#if [ -d ${subj}_7T_RET_1.6mm_fix ]; then rm -r ${subj}_7T_RET_1.6mm_fix ${subj}_3T_Structural_1.6mm_preproc; fi
+#if [ -d ${subj}_7T_RET_2mm_fix ]; then rm -r ${subj}_7T_RET_2mm_fix ${subj}_3T_Structural_preproc; fi
