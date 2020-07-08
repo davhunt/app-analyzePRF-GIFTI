@@ -9,6 +9,7 @@ module load matlab/2017a
 
 #module unload singularity && module load singularity/2.6.1
 
+echo "loading fsdir"
 fsdir=$(jq -r .output config.json)
 
 export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH
@@ -18,10 +19,13 @@ mkdir -p prf/prf_surfaces prf/surfaces
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 
+echo "compiled/main"
 time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
+echo "creat_curv.lpy"
 time singularity exec -e -w docker://brainlife/dipy:0.16.0 ./create_curv.py
 
-rm -f prf_results.mat
+#rm -f prf_results.mat
 
+echo "and create_vtks"
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer-mini:6.0.1 ./create_vtks.sh $fsdir
