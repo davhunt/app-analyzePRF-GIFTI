@@ -1,7 +1,5 @@
 #!/bin/bash
 
-module unload matlab && module load matlab/2017a
-
 log=compiled/commit_ids.txt
 true > $log
 echo "/N/u/brlife/git/jsonlab" >> $log

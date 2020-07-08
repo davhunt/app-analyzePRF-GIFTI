@@ -4,21 +4,18 @@
 #PBS -N pRF
 #PBS -V
 
-module unload matlab
-module load matlab/2017a
-
-#module unload singularity && module load singularity/2.6.1
-
 fsdir=$(jq -r .output config.json)
 
-export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v96/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v96/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v96/sys/os/glnxa64:$LD_LIBRARY_PATH
+
+export PATH=/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v96:$PATH
 
 mkdir -p prf/prf_surfaces prf/surfaces
 
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 
-time singularity exec -e docker://davhunt/wb_freesurfer:3.0 ./compiled/main
+time singularity exec -e docker://davhunt/wb_freesurfer:mcr-r2019a ./compiled/main
 
 time singularity exec -e docker://brainlife/dipy:0.16.0 ./create_curv.py
 

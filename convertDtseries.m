@@ -9,7 +9,7 @@ if ~isdeployed
         addpath(genpath('/N/u/davhunt/Carbonate/NIfTI_cifti_matlab_tools'))
 end
 
-wbcmd = '/usr/bin/wb_command';  % path to workbench command
+wbcmd = '/usr/local/workbench/bin_linux64/wb_command';  % path to workbench command
 
 if str2num(res) == 2.0
   runs = {'tfMRI_RETCCW_7T_AP/tfMRI_RETCCW_7T_AP_Atlas_MSMAll_hp2000_clean.dtseries.nii' ...
