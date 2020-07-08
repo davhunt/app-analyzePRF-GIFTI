@@ -1,4 +1,4 @@
-function analyzePRFforHCP(func_L, func_R)
+function getPRF(func_L, func_R)
 
 func_L_gii = gifti(func_L);
 func_R_gii = gifti(func_R);
@@ -44,17 +44,6 @@ case 3
 end
 % fit the models
 a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[0 1 2]));
-
-% convert pAngle results to standard pRF convention (0-180 deg = UVM -> L/R HM -> LVM)
-for i = 1:size(a1.ang)
-  if a1.ang(i) >= 90.0 && a1.ang(i) <= 270.0
-    a1.ang(i) = a1.ang(i) - 90;
-  elseif a1.ang(i) >= 0.0 && a1.ang(i) < 90.0
-    a1.ang(i) = -a1.ang(i) + 90;
-  elseif a1.ang(i) > 270.0 && a1.ang(i) <= 360.0
-    a1.ang(i) = -a1.ang(i) + 450;
-  end
-end
 
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize' 'expt'};
