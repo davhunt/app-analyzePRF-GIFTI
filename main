@@ -7,7 +7,7 @@
 module unload matlab
 module load matlab/2017a
 
-module unload singularity && module load singularity/2.6.1
+#module unload singularity && module load singularity/2.6.1
 
 fsdir=$(jq -r .output config.json)
 
