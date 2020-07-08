@@ -17,6 +17,8 @@ PATH = getenv('PATH');
 setenv('PATH', [PATH ':/usr/bin']);
 
 % compute pRF
+disp('getPRF path:')
+which getPRF
 getPRF(config.func_L, config.func_R);
 
 createSurfs(config.pial_L, config.pial_R, config.wm_L, config.wm_R, config.inflated_L, config.inflated_R);
