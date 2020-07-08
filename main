@@ -20,10 +20,10 @@ mkdir -p prf/prf_surfaces prf/surfaces
 echo $FREESURFER_LICENSE > license.txt
 
 echo "compiled/main"
-time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
+time singularity exec -e docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
 echo "creat_curv.lpy"
-time singularity exec -e -w docker://brainlife/dipy:0.16.0 ./create_curv.py
+time singularity exec -e docker://brainlife/dipy:0.16.0 ./create_curv.py
 
 #rm -f prf_results.mat
 
