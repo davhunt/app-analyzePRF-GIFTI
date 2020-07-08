@@ -4,9 +4,6 @@
 #PBS -N pRF
 #PBS -V
 
-module unload matlab
-module load matlab/2017a
-
 #module unload singularity && module load singularity/2.6.1
 
 echo "loading fsdir"
