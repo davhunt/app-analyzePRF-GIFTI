@@ -9,7 +9,7 @@
 echo "loading fsdir"
 fsdir=$(jq -r .output config.json)
 
-export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v92/sys/os/glnxa64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/N/u/davhunt/Carbonate/workbench/libs_rh_linux64:/N/u/davhunt/Carbonate/workbench/libs_rh_linux64_software_opengl:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v96/runtime/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v96/bin/glnxa64:/N/soft/rhel7/matlab/MATLAB_Compiler_Runtime/v96/sys/os/glnxa64:$LD_LIBRARY_PATH
 
 mkdir -p prf/prf_surfaces prf/surfaces
 
