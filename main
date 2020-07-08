@@ -18,10 +18,10 @@ mkdir -p prf/prf_surfaces prf/surfaces
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 
-time singularity exec -e -w docker://davhunt/wb_freesurfer:3.0 ./compiled/main
+time singularity exec -e docker://davhunt/wb_freesurfer:3.0 ./compiled/main
 
-time singularity exec -e -w docker://brainlife/dipy:0.16.0 ./create_curv.py
-
-rm -f prf_results.mat
+time singularity exec -e docker://brainlife/dipy:0.16.0 ./create_curv.py
 
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer-mini:6.0.1 ./create_vtks.sh $fsdir
+
+rm -f prf_results.mat
