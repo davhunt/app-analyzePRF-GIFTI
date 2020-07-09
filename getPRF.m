@@ -62,7 +62,7 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[-2]));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[0 1 2]));
 
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize' 'expt'};
