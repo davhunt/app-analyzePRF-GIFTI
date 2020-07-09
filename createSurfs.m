@@ -26,12 +26,12 @@ rh_59k_atlas = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Stru
 %lh_59k_sphere = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.L.sphere.59k_fs_LR.surf.gii');
 %rh_59k_sphere = gifti('/N/u/davhunt/Carbonate/Downloads/102816_hcp/102816_3T_Structural_1.6mm_preproc/MNINonLinear/fsaverage_LR59k/102816.R.sphere.59k_fs_LR.surf.gii');
 
-lh_59k_white = gifti(wm_L);
-rh_59k_white = gifti(wm_R);
-lh_59k_pial = gifti(pial_L);
-rh_59k_pial = gifti(pial_R);
-lh_59k_inflated = gifti(inflated_L);
-rh_59k_inflated = gifti(inflated_R);
+lh_59k_white = gifti(char(wm_L{1}));
+rh_59k_white = gifti(char(wm_R{1}));
+lh_59k_pial = gifti(char(pial_L{1}));
+rh_59k_pial = gifti(char(pial_R{1}));
+lh_59k_inflated = gifti(char(inflated_L{1}));
+rh_59k_inflated = gifti(char(inflated_R{1}));
 
 
 
