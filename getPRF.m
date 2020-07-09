@@ -45,8 +45,8 @@ LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
 func_L_gii = {}
 func_R_gii = {}
 for p=1:length(func_L)
-  func_L_gii = gifti(func_L{p});
-  func_R_gii = gifti(func_R{p});
+  func_L_gii = gifti(char(func_L{p}));
+  func_R_gii = gifti(char(func_R{p}));
   data{p} = double(cat(1, func_L_gii.cdata, func_R_gii.cdata));
 end
 
