@@ -2,8 +2,6 @@
 
 # assuming we're in the directory containing 7T RET_?mm_fix folder
 
-module unload matlab && module load matlab/2017a
-
 rm -rf compiled_upload && mkdir compiled_upload
 
 log=compiled_upload/commit_ids.txt

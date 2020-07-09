@@ -1,7 +1,7 @@
-function getPRF(func_L, func_R)
+function getPRF(func_L, func_R, stim, HCPstimuli)
 
-func_L_gii = gifti(func_L);
-func_R_gii = gifti(func_R);
+%func_L_gii = gifti(func_L);
+%func_R_gii = gifti(func_R);
 
 tr = 1;                % temporal sampling rate in seconds
 pxtodeg = 16.0/200;    % conversion from pixels to degrees
@@ -11,26 +11,45 @@ wh = 1;
 % define which model fit to perform (1 through 3)
 typ = 1;  % 1 is all runs, 2 is first half of each run, 3 is second half of each run
 
-aperturefiles = {strcat(pwd,'/apertures/RETCCWsmall.mat') ...
-                 strcat(pwd,'/apertures/RETCWsmall.mat') ...
-                 strcat(pwd,'/apertures/RETEXPsmall.mat') ...
-                 strcat(pwd,'/apertures/RETCONsmall.mat') ...
-                 strcat(pwd,'/apertures/RETBARsmall.mat') ...
-                 strcat(pwd,'/apertures/RETBARsmall.mat')};
-stimulus = {};
-for p=1:length(aperturefiles)
-  a1 = load(aperturefiles{p},'stim');
-  stimulus{p} = a1.stim;
+stimuli = {};
+if HCPstimuli == 1
+  aperturefiles = {strcat(pwd,'/apertures/RETCCWsmall.mat') ...
+                   strcat(pwd,'/apertures/RETCWsmall.mat') ...
+                   strcat(pwd,'/apertures/RETEXPsmall.mat') ...
+                   strcat(pwd,'/apertures/RETCONsmall.mat') ...
+                   strcat(pwd,'/apertures/RETBARsmall.mat') ...
+                   strcat(pwd,'/apertures/RETBARsmall.mat')};
+  for p=1:length(aperturefiles)
+    a1 = load(aperturefiles{p},'stim');
+    stimulus{p} = a1.stim;
+  end
+else
+  if isempty(stim)
+    error('either user-uploaded or HCP stimuli must be specified');
+  end
+  for p=1:length(stim)
+    a1 = load_untouch_nii(stim{p});
+    stimulus{p} = a1.img;
+  end
 end
 
 data = {};
 LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
 
-sumTR = 1;
-for p=1:size(stimulus,2)
-  data{p} = double(cat(1, func_L_gii.cdata(:,sumTR:sumTR+size(stimulus{p},3)-1), func_R_gii.cdata(:,sumTR:sumTR+size(stimulus{p},3)-1)));
-  sumTR = sumTR + size(stimulus{p},3);
+%sumTR = 1;
+%for p=1:size(stimulus,2)
+%  data{p} = double(cat(1, func_L_gii.cdata(:,sumTR:sumTR+size(stimulus{p},3)-1), func_R_gii.cdata(:,sumTR:sumTR+size(stimulus{p},3)-1)));
+%  sumTR = sumTR + size(stimulus{p},3);
+%end
+
+func_L_gii = {}
+func_R_gii = {}
+for p=1:length(func_L)
+  func_L_gii = gifti(func_L{p});
+  func_R_gii = gifti(func_R{p});
+  data{p} = double(cat(1, func_L_gii.cdata, func_R_gii.cdata));
 end
+
 
 % deal with subsetting
 switch typ
@@ -48,7 +67,7 @@ a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[-2]));
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize' 'expt'};
 
-totalVerticesLH = size(func_L_gii.cdata,1); totalVerticesRH = size(func_R_gii.cdata,1);
+totalVerticesLH = size(func_L_gii{1}.cdata,1); totalVerticesRH = size(func_R_gii{1}.cdata,1);
 totalVertices = totalVerticesLH + totalVerticesRH;
 
 % 91282 grayordinates x 6 quants x 184 subjects x 3 model fits
