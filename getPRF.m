@@ -67,7 +67,7 @@ a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[-2]));
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize' 'expt'};
 
-totalVerticesLH = size(func_L_gii{1}.cdata,1); totalVerticesRH = size(func_R_gii{1}.cdata,1);
+totalVerticesLH = size(func_L_gii.cdata,1); totalVerticesRH = size(func_R_gii.cdata,1);
 totalVertices = totalVerticesLH + totalVerticesRH;
 
 % 91282 grayordinates x 6 quants x 184 subjects x 3 model fits
