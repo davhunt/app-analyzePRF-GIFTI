@@ -38,7 +38,7 @@ rh_59k_inflated = gifti(char(inflated_R{1}));
 
 
 
-%bad_vertices_index = struct;
+
 good_vertices_index = struct;
 good_faces_bool = struct; % not actually used
 new_vertices = struct;

@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#PBS -l nodes=1:ppn=12,vmem=100gb,walltime=96:00:00
+#PBS -l nodes=1:ppn=12,vmem=130gb,walltime=96:00:00
 #PBS -N pRF
 #PBS -V
-
-#module unload singularity && module load singularity/2.6.1
 
 echo "loading fsdir"
 fsdir=$(jq -r .output config.json)
