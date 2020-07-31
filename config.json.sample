@@ -1,4 +1,57 @@
 {
-    "gifti_dir": "/N/u/davhunt/Carbonate/Downloads/100610_1/etc",
-    "output": "/freesurfer/output"
+    "hcp": false,
+    "func_L": [
+        "/path/to/left_data_run1.gii",
+        "/path/to/left_data_run2.gii",
+        "/path/to/left_data_run3.gii",
+        "/path/to/left_data_run4.gii"
+    ],
+    "func_R": [
+        "/path/to/right_data_run1.gii",
+        "/path/to/right_data_run2.gii",
+        "/path/to/right_data_run3.gii",
+        "/path/to/right_data_run4.gii"
+    ],
+    "pial_L": [
+        "/path/to/left_pial_run1.surf.gii",
+        "/path/to/left_pial_run2.surf.gii",
+        "/path/to/left_pial_run3.surf.gii",
+        "/path/to/left_pial_run4.surf.gii"
+    ],
+    "pial_R": [
+        "/path/to/right_pial_run1.surf.gii",
+        "/path/to/right_pial_run2.surf.gii",
+        "/path/to/right_pial_run3.surf.gii",
+        "/path/to/right_pial_run4.surf.gii"
+    ],
+    "wm_L": [
+        "/path/to/left_white_run1.surf.gii",
+        "/path/to/left_white_run2.surf.gii",
+        "/path/to/left_white_run3.surf.gii",
+        "/path/to/left_white_run4.surf.gii"
+    ],
+    "wm_R": [
+        "/path/to/right_white_run1.surf.gii",
+        "/path/to/right_white_run2.surf.gii",
+        "/path/to/right_white_run3.surf.gii",
+        "/path/to/right_white_run4.surf.gii"
+    ],
+    "inflated_L": [
+        "/path/to/left_inflated_run1.surf.gii",
+        "/path/to/left_inflated_run2.surf.gii",
+        "/path/to/left_inflated_run3.surf.gii",
+        "/path/to/left_inflated_run4.surf.gii"
+    ],
+    "inflated_R": [
+        "/path/to/right_inflated_run1.surf.gii",
+        "/path/to/right_inflated_run2.surf.gii",
+        "/path/to/right_inflated_run3.surf.gii",
+        "/path/to/right_inflated_run4.surf.gii"
+    ],
+    "stim": [
+        "/path/to/stim_run1.nii.gz",
+        "/path/to/stim_run2.nii.gz",
+        "/path/to/stim_run3.nii.gz",
+        "/path/to/stim_run4.nii.gz"
+    ]
 }
