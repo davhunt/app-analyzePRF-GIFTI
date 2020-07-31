@@ -11,7 +11,7 @@ wh = 1;
 % define which model fit to perform (1 through 3)
 typ = 1;  % 1 is all runs, 2 is first half of each run, 3 is second half of each run
 
-stimuli = {};
+stimulus = {};
 if HCPstimuli == 1
   aperturefiles = {strcat(pwd,'/apertures/RETCCWsmall.mat') ...
                    strcat(pwd,'/apertures/RETCWsmall.mat') ...
@@ -28,28 +28,21 @@ else
     error('either user-uploaded or HCP stimuli must be specified');
   end
   for p=1:length(stim)
-    a1 = load_untouch_nii(stim{p});
+    a1 = load_untouch_nii(char(stim{p}));
     stimulus{p} = a1.img;
   end
 end
 
-data = {};
 LD_LIBRARY_PATH = getenv('LD_LIBRARY_PATH');
 
-%sumTR = 1;
-%for p=1:size(stimulus,2)
-%  data{p} = double(cat(1, func_L_gii.cdata(:,sumTR:sumTR+size(stimulus{p},3)-1), func_R_gii.cdata(:,sumTR:sumTR+size(stimulus{p},3)-1)));
-%  sumTR = sumTR + size(stimulus{p},3);
-%end
-
-func_L_gii = {}
-func_R_gii = {}
+func_L_gii = {};
+func_R_gii = {};
+data = {};
 for p=1:length(func_L)
   func_L_gii = gifti(char(func_L{p}));
   func_R_gii = gifti(char(func_R{p}));
   data{p} = double(cat(1, func_L_gii.cdata, func_R_gii.cdata));
 end
-
 
 % deal with subsetting
 switch typ
@@ -62,7 +55,7 @@ case 3
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[0 1 2]));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[-2]));
 
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize' 'expt'};
