@@ -42,17 +42,17 @@ p=1;
 for task = {'RETCCW' 'RETCW' 'RETEXP' 'RETCON' 'RETBAR1' 'RETBAR2'}
   gii = gifti;
   if str2num(res) == 2
-    gii.cdata = data{p}(1:29696,:);
+    gii.cdata = data{p}(1:29696,:); % LH has 29696 grayordinates
   elseif str2num(res) == 1.6
-    gii.cdata = data{p}(1:54216,:);
+    gii.cdata = data{p}(1:54216,:); % LH has 54216 grayordinates
   end
   save_gifti(gii,strcat('left_data_',char(task),'.gii'));
 
   gii = gifti;
   if str2num(res) == 2
-    gii.cdata = data{p}(29697:59412,:);
+    gii.cdata = data{p}(29697:59412,:); % RH has 29716 grayordinates
   elseif str2num(res) == 1.6
-    gii.cdata = data{p}(54217:108441,:);
+    gii.cdata = data{p}(54217:108441,:); % RH has 54225 grayordinates
   end
   save_gifti(gii,strcat('right_data_',char(task),'.gii'));
 
