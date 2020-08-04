@@ -21,6 +21,6 @@ disp('getPRF path:')
 which getPRF
 getPRF(config.func_L, config.func_R, config.stim, config.hcp);
 
-createSurfs(config.pial_L, config.pial_R, config.wm_L, config.wm_R, config.inflated_L, config.inflated_R);
+createSurfs(config.pial_L, config.pial_R, config.wm_L, config.wm_R, config.inflated_L, config.inflated_R, config.hcp);
 
 end

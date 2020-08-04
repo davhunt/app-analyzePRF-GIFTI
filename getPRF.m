@@ -1,8 +1,5 @@
 function getPRF(func_L, func_R, stim, HCPstimuli)
 
-%func_L_gii = gifti(func_L);
-%func_R_gii = gifti(func_R);
-
 tr = 1;                % temporal sampling rate in seconds
 pxtodeg = 16.0/200;    % conversion from pixels to degrees
 
