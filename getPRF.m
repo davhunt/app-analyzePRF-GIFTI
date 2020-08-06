@@ -1,7 +1,7 @@
 function getPRF(func_L, func_R, stim, HCPstimuli)
 
-tr = 1;                % temporal sampling rate in seconds
-pxtodeg = 16.0/200;    % conversion from pixels to degrees
+tr = 1;                % temporal sampling rate in seconds % TODO make configurable
+pxtodeg = 16.0/200;    % conversion from pixels to degrees % TODO make configurable
 
 % define which subject to analyze (1 through 184)
 wh = 1;
