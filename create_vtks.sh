@@ -1,7 +1,5 @@
 #!/bin/bash
 
-fsdir=${1}
-
 echo "creating vtks"
 mris_convert prf/surfaces/lh.white.gii prf/surfaces/lh.white.vtk
 mris_convert prf/surfaces/rh.white.gii prf/surfaces/rh.white.vtk
