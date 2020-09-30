@@ -6,7 +6,7 @@ if ~isdeployed
 	addpath(genpath('/N/u/brlife/git/mrTools'))
         addpath(genpath('/N/u/brlife/git/NIfTI'))
 	addpath(genpath('utilities'))
-        addpath(genpath('/N/u/davhunt/Carbonate/Downloads/gifti-1.8/'))
+        addpath(genpath('gifti-1.8/'))
 end
 
 

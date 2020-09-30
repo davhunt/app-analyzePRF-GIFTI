@@ -12,7 +12,7 @@ echo "/N/u/brlife/git/NIfTI" >> $log
 (cd /N/u/brlife/git/NIfTI && git log -1) >> $log
 echo "utilities" >> $log
 (cd utilities && git log -1) >> $log
-echo "/N/u/davhunt/Carbonate/Downloads/gifti-1.8" >> $log
+echo "gifti-1.8" >> $log
 (cd /N/u/davhunt/Carbonate/Downloads/gifti-1.8 && git log -1) >> $log
 
 cat > build.m <<END
@@ -20,7 +20,7 @@ addpath(genpath('/N/u/brlife/git/jsonlab'))
 addpath(genpath('/N/u/brlife/git/mrTools'))
 addpath(genpath('/N/u/brlife/git/NIfTI'))
 addpath(genpath('utilities'))
-addpath(genpath('/N/u/davhunt/Carbonate/Downloads/gifti-1.8'))
+addpath(genpath('gifti-1.8'))
 
 mcc -m -R -nodisplay -a /N/u/brlife/git/vistasoft/mrDiffusion/templates -d compiled main
 exit
