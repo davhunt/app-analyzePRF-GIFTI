@@ -11,6 +11,11 @@ echo $FREESURFER_LICENSE > license.txt
 
 echo "run PRF and remove medial wall in HCP surfaces"
 time singularity exec -e docker://davhunt/wb_freesurfer:mcr-r2019a ./compiled/main
+if [ ! -s ./prf/prf_surfaces/lh.polarAngle.gii ];
+then
+	echo "output missing"
+	exit 1
+fi
 
 echo "and create vtks"
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer-mini:6.0.1 ./create_vtks.sh $fsdir
