@@ -9,13 +9,8 @@ mkdir -p prf/prf_surfaces prf/surfaces
 [ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 
-echo "compiled/main"
+echo "run PRF and remove medial wall in HCP surfaces"
 time singularity exec -e docker://davhunt/wb_freesurfer:mcr-r2019a ./compiled/main
 
-echo "creat_curv.lpy"
-time singularity exec -e docker://brainlife/dipy:0.16.0 ./create_curv.py
-
-#rm -f prf_results.mat
-
-echo "and create_vtks"
+echo "and create vtks"
 time singularity exec -e -B `pwd`/license.txt:/usr/local/freesurfer/license.txt docker://brainlife/freesurfer-mini:6.0.1 ./create_vtks.sh $fsdir
