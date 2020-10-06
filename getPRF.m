@@ -1,7 +1,15 @@
-function getPRF(func_L, func_R, stim, HCPstimuli)
+function getPRF(func_L, func_R, stim, HCPstimuli, TR, pxtodeg)
 
-tr = 1;                % temporal sampling rate in seconds % TODO make configurable
-pxtodeg = 16.0/200;    % conversion from pixels to degrees % TODO make configurable
+if length(func_L) ~= length(stim) || length(func_R) ~= length(stim)
+  error('must input one stimulus for each fmri run')
+end
+
+if ~isempty(TR) tr = TR;  % temporal sampling rate in seconds 
+else
+  error('No repetition time (TR) found for inputted fMRI')
+end
+
+if isempty(pxtodeg) error('conversion factor from pixels (of visual stimulus) to degrees not specified'); end    % conversion from pixels to degrees
 
 % define which subject to analyze (1 through 184)
 wh = 1;

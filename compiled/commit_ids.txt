@@ -15,9 +15,9 @@ Date:   Wed Jul 18 11:41:49 2018 -0700
     Fixing isFile to mlrIsFile
 /N/u/brlife/git/NIfTI
 utilities
-commit b64a6cb74eba5fbbe03151d21b4300a7dc9413ab
+commit 7d60d416d96a3bc2a7e94525b58f10fed32feb81
 Author: David Hunt <davhunt@indiana.edu>
-Date:   Mon Sep 28 11:53:35 2020 -0400
+Date:   Thu Oct 1 18:54:49 2020 -0400
 
-    update paths for matlab
-/N/u/davhunt/Carbonate/Downloads/gifti-1.8
+    check for output
+gifti-1.8
