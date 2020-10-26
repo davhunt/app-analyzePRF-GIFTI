@@ -1,4 +1,4 @@
-function getPRF(func_L, func_R, stim, HCPstimuli, TR, pxtodeg)
+function getPRF(func_L, func_R, stim, seedmodes, HCPstimuli, TR, pxtodeg, gsr)
 
 if length(func_L) ~= length(stim) || length(func_R) ~= length(stim)
   error('must input one stimulus for each fmri run')
@@ -59,8 +59,11 @@ case 3
   stimulus = cellfun(@(x) x(:,:,151:300),stimulus,'UniformOutput',0);
   data =     cellfun(@(x) x(:,151:300),  data,    'UniformOutput',0);
 end
+
+data = globalRegress(data, gsr); % do global signal regression
+
 % fit the models
-a1 = analyzePRF(stimulus,data,tr,struct('seedmode',[0 1 2]));
+a1 = analyzePRF(stimulus,data,tr,struct('seedmode',seedmodes,'display','off'));
 
 % prepare outputs
 quants = {'ang' 'ecc' 'gain' 'meanvol' 'R2' 'rfsize' 'expt'};
