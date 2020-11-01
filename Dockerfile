@@ -9,7 +9,10 @@ RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y jq bc libsys-hostname-long-perl libglib2.0
 
 #make it work under singularity
-RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft /scratch /mnt/share1
+RUN ldconfig && mkdir -p /N/u /N/home /N/dc2 /N/soft /N/slate /scratch /mnt/share1
+
+#https://wiki.ubuntu.com/DashAsBinSh 
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Download and install Connectome Workbench 1.4.2
 # Compatible with HCP v4.0.0

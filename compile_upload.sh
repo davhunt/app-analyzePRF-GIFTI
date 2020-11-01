@@ -10,8 +10,6 @@ log=compiled_upload/commit_ids.txt
 true > $log
 echo "/N/u/brlife/git/jsonlab" >> $log
 (cd /N/u/brlife/git/jsonlab && git log -1) >> $log
-echo "/N/u/brlife/git/mrTools" >> $log
-(cd /N/u/brlife/git/mrTools && git log -1) >> $log
 echo "utilities" >> $log
 (cd /N/u/davhunt/Carbonate/analyzePRF/utilities && git log -1) >> $log
 echo "gifti-1.8" >> $log
@@ -21,7 +19,6 @@ echo "NIfTI_cifti_matlab_tools" >> $log
 
 cat > build.m <<END
 addpath(genpath('/N/u/brlife/git/jsonlab'))
-addpath(genpath('/N/u/brlife/git/mrTools'))
 addpath(genpath('utilities'))
 addpath(genpath('gifti-1.8'))
 addpath(genpath('NIfTI_cifti_matlab_tools'))
