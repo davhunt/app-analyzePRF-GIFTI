@@ -15,9 +15,9 @@ Date:   Wed Jul 18 11:41:49 2018 -0700
     Fixing isFile to mlrIsFile
 /N/u/brlife/git/NIfTI
 utilities
-commit 0a8d5a3a3f9742c39d8dacba423256a574ed87a2
+commit 9d49ceb9ec8cf234ad51abc672a77b297048204b
 Author: David Hunt <davhunt@indiana.edu>
-Date:   Tue Oct 13 21:08:27 2020 -0400
+Date:   Tue Oct 13 22:13:23 2020 -0400
 
-    update create_vtks.sh
+    convert r^2 to %
 gifti-1.8
