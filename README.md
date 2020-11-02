@@ -5,11 +5,15 @@
 
 This service runs the [analyzePRF toolbox](https://github.com/kendrickkay/analyzePRF) to derive pRF (population receptive field) measurements on the cortical surface, from retinotopy task fMRI data. In this model a static, compressive nonlinearity is applied to the modeled BOLD response before PRFs are fit, in line with findings that spatial summation in human visual cortex is compressive. Measurements include r^2, polar angle, eccentricity, and rf width.
 
-Visually responsive voxels (or grayordinates) are analyzed and properties of each grayordinate is extracted from the fMRI data.  PRF measurements include the grayordinate's r^2 (variance explained), receptive field angle, eccentricity, and size (std of the Gaussian), as well as the (typically compressive) exponent of the Gaussian used to model the receptive field's visual response contrast, the gain describing the pRF model, and the mean signal intensity.
+Visually responsive voxels (or grayordinates) are analyzed and properties of each grayordinate is extracted from the fMRI data.  PRF measurements include the grayordinate's r^2 (variance explained), receptive field polar angle (in deg), eccentricity (in deg), and size (std of the Gaussian in deg), as well as the (typically compressive) exponent of the Gaussian used to model the receptive field's visual response contrast, the gain describing the pRF model, and the mean signal intensity.
 
 [![pRF parameters](https://raw.githubusercontent.com/davhunt/pictures/master/Screenshot%20from%202019-04-17%2014-41-11.png)
 
 The fMRI data should be in the form of [GIFTI](https://surfer.nmr.mgh.harvard.edu/fswiki/GIfTI)-format files, in the Brainlife ["surfaces"](https://brainlife.io/datatype/5dec20ff6c0bd9f84485779f) datatype, which consists of the time-series information for each vertex in the left and right hemispheres (left_data.gii and right_data.gii) as well as the geometrical information (x,y,z coordinates) of each vertex on the pial, white, and inflated surfaces (left_white.gii, left_pial.gii, left_inflated.gii, etc.)
+
+The stimulus stim.nii.gz must match the temporal dimension (TR) of the fMRI, and consists of a pixelsX x pixelsY x time-points NIfTI image with range [0,1] expressing the contrast of the stimulus image at each pixel over time.
+
+Global signal regression of FMRI supported, converting signal to % change from baseline, either computing baseline for each voxel seperately (per-voxel normalization, 'pvn') or computing a global baseline (grand-mean scaling, 'gms').
 
 ### Authors
 - David Hunt (davhunt@iu.edu)
@@ -26,6 +30,20 @@ brainlife.io is publicly funded and for the sustainability of the project it is 
 [![NSF-ACI-1916518](https://img.shields.io/badge/NSF_ACI-1916518-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1916518)
 [![NSF-IIS-1912270](https://img.shields.io/badge/NSF_IIS-1912270-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1912270)
 [![NIH-NIBIB-R01EB029272](https://img.shields.io/badge/NIH_NIBIB-R01EB029272-green.svg)](https://grantome.com/grant/NIH/R01-EB029272-01)
+
+### Citations
+We kindly ask that you cite the following articles when publishing papers and code using this code. 
+
+1. Kay, K. N., Winawer, J., Mezer, A., & Wandell, B. A. (2013). Compressive spatial summation in human visual cortex. Journal of neurophysiology, 110(2), 481-494. [https://doi.org/10.1152/jn.00105.2013](https://doi.org/10.1152/jn.00105.2013)
+
+2. Zhou, J., Benson, N. C., Kay, K. N., & Winawer, J. (2018). Compressive temporal summation in human visual cortex. Journal of Neuroscience, 38(3), 691-709. [https://doi.org/10.1523/JNEUROSCI.1724-17.2017](https://doi.org/10.1523/JNEUROSCI.1724-17.2017)
+
+3. Benson, N. C., Jamison, K. W., Arcaro, M. J., Vu, A. T., Glasser, M. F., Coalson, T. S., ... & Kay, K. (2018). The Human Connectome Project 7 Tesla retinotopy dataset: Description and population receptive field analysis. Journal of vision, 18(13), 23-23. [https://doi.org/10.1167/18.13.23](https://doi.org/10.1167/18.13.23)
+
+4. Avesani, P., McPherson, B., Hayashi, S. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019). [https://doi.org/10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
+
+#### MIT Copyright (c) 2020 brainlife.io The University of Texas at Austin and Indiana University
+
 
 ## Running 
 
@@ -79,14 +97,68 @@ You can submit this App online at [https://doi.org/10.25663/brainlife.app.203](h
 
 ```json
 {
-        "func_L": "/input/left_data.gii",
-        "func_R": "/input/right_data.gii",
-        "pial_L": "/input/surfaces/left_pial.surf.gii",
-        "pial_R": "/input/surfaces/right_pial.surf.gii",
-        "wm_L": "/input/surfaces/left_wm.surf.gii",
-        "wm_R": "/input/surfaces/right_wm.surf.gii",
-        "inflated_L": "/input/surfaces/left_inflated.surf.gii",
-        "inflated_R": "/input/surfaces/right_inflated.surf.gii"
+    "hcp": false,
+    "TR": 1,
+    "pxtodeg": 0.08,
+    "gsr": "none",
+    "wantquick": false,
+    "seedmode0": true,
+    "seedmode1": true,
+    "seedmode2": true,
+    "func_L": [
+        "testdata/run1/left_data.gii",
+        "testdata/run2/left_data.gii",
+        "testdata/run3/left_data.gii",
+        "testdata/run4/left_data.gii"
+    ],
+    "func_R": [
+        "testdata/run1/right_data.gii",
+        "testdata/run2/right_data.gii",
+        "testdata/run3/right_data.gii",
+        "testdata/run4/right_data.gii"
+    ],
+    "pial_L": [
+        "testdata/run1/left_pial.surf.gii",
+        "testdata/run2/left_pial.surf.gii",
+        "testdata/run3/left_pial.surf.gii",
+        "testdata/run4/left_pial.surf.gii"
+    ],
+    "pial_R": [
+        "testdata/run1/right_pial.surf.gii",
+        "testdata/run2/right_pial.surf.gii",
+        "testdata/run3/right_pial.surf.gii",
+        "testdata/run4/right_pial.surf.gii"
+    ],
+    "wm_L": [
+        "testdata/run1/left_white.surf.gii",
+        "testdata/run2/left_white.surf.gii",
+        "testdata/run3/left_white.surf.gii",
+        "testdata/run4/left_white.surf.gii"
+    ],
+    "wm_R": [
+        "testdata/run1/right_white.surf.gii",
+        "testdata/run2/right_white.surf.gii",
+        "testdata/run3/right_white.surf.gii",
+        "testdata/run4/right_white.surf.gii"
+    ],
+    "inflated_L": [
+        "testdata/run1/left_inflated.surf.gii",
+        "testdata/run2/left_inflated.surf.gii",
+        "testdata/run3/left_inflated.surf.gii",
+        "testdata/run4/left_inflated.surf.gii"
+    ],
+    "inflated_R": [
+        "testdata/run1/right_inflated.surf.gii",
+        "testdata/run2/right_inflated.surf.gii",
+        "testdata/run3/right_inflated.surf.gii",
+        "testdata/run4/right_inflated.surf.gii"
+    ],
+    "stim": [
+        "testdata/run1/stim/stim.nii.gz",
+        "testdata/run2/stim/stim.nii.gz",
+        "testdata/run3/stim/stim.nii.gz",
+        "testdata/run4/stim/stim.nii.gz"
+    ]
 }
 ```
 3. Launch the App by executing `main`
@@ -96,25 +168,11 @@ You can submit this App online at [https://doi.org/10.25663/brainlife.app.203](h
 
 ## Output
 
-The main output will be the "prf" directory, which will store the geometric surfaces inputted (in "surfaces") as well as the population receptive field measurements r squared, polar angle, eccentricity, and receptive field width (std of the Gaussian), in "prf_surfaces," for each vertex analyzed on each hemisphere.
+The main output will be the "prf" directory, which will store the geometric surfaces inputted (in "surfaces") as well as the population receptive field measurements polarAngle, eccentricity, receptive field size (rfWidth), R2, exponent, gain, and mean volume, in "prf_surfaces," for each grayordinate on each hemisphere.
 
 ### Dependencies
 
 This App only requires [singularity](https://www.sylabs.io/singularity/) to run.
-
-### Citations
-We kindly ask that you cite the following articles when publishing papers and code using this code. 
-
-1. Kay, K. N., Winawer, J., Mezer, A., & Wandell, B. A. (2013). Compressive spatial summation in human visual cortex. Journal of neurophysiology, 110(2), 481-494. [https://doi.org/10.1152/jn.00105.2013](https://doi.org/10.1152/jn.00105.2013)
-
-2. Zhou, J., Benson, N. C., Kay, K. N., & Winawer, J. (2018). Compressive temporal summation in human visual cortex. Journal of Neuroscience, 38(3), 691-709. [https://doi.org/10.1523/JNEUROSCI.1724-17.2017](https://doi.org/10.1523/JNEUROSCI.1724-17.2017)
-
-3. Benson, N. C., Jamison, K. W., Arcaro, M. J., Vu, A. T., Glasser, M. F., Coalson, T. S., ... & Kay, K. (2018). The Human Connectome Project 7 Tesla retinotopy dataset: Description and population receptive field analysis. Journal of vision, 18(13), 23-23. [https://doi.org/10.1167/18.13.23](https://doi.org/10.1167/18.13.23)
-
-4. Avesani, P., McPherson, B., Hayashi, S. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019). [https://doi.org/10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
-
-#### MIT Copyright (c) 2020 brainlife.io The University of Texas at Austin and Indiana University
-
 
 
 ### License
